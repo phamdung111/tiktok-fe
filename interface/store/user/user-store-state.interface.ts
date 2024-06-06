@@ -1,5 +1,6 @@
 import type { FollowInterface } from "~/interface/entity/follow/follow.interface";
 import type { PostResponseInterface } from "~/interface/response/post/post-response.interface";
+import type { PostInteractiveResponseInterface } from "~/interface/response/post/profile/post-interactive-response.interface";
 
 export interface UserStoreStateInterface {
   id: number;
@@ -12,7 +13,6 @@ export interface UserStoreStateInterface {
   following: FollowInterface[];
   follower: [];
   prefer: number;
-  likedPost: PostResponseInterface[] | null;
-  favorite: PostResponseInterface[] | null;
-  liked: PostResponseInterface[] | null;
+  favorite: PostInteractiveResponseInterface[] | null;
+  liked: PostInteractiveResponseInterface[] | null;
 }

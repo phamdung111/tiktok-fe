@@ -1,6 +1,6 @@
 <template>
   <div @click="isLike ? unLikePost() : likePost()"
-    :class="directionVertical ? 'grid justify-center' : 'flex items-center gap-1'">
+    :class="directionVertical ? 'grid justify-center' : 'flex items-center gap-1'" class="cursor-pointer">
     <div :class="isLike ? 'text-red-primary' : ''">
       <div class="flex justify-center items-center bg-gray-200 w-[40px] h-[40px] rounded-full opacity-85">
         <Icon name="mdi:heart" :size="size.toString()" />
@@ -19,7 +19,7 @@ import { defineComponent, type PropType } from 'vue'
 import { userLikePostComposable } from '~/composables/user/post/like/user-like-post.composable'
 import { userUnlikeComposable } from '~/composables/user/post/like/user-unlike-post.composable'
 import { useUserStore } from '~/store/user'
-import type { PostResponseInterface } from '../../interface/response/post/post-response.interface';
+import type { PostResponseInterface } from '~/interface/response/post/post-response.interface'
 export default defineComponent({
   name: 'LikeButton',
   props: {

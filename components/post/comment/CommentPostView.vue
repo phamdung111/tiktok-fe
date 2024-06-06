@@ -10,9 +10,10 @@
         <div class="grid">
           <div class="flex justify-between">
             <div class="w-full mb-2">
-              <p @click="navigateTo(`/profile/${comment?.user[0].id}`)" class="hover:cursor-pointer">{{
-                comment?.user[0].name }}</p>
-              <p class="opacity-75">{{ comment.text }}</p>
+              <p @click="navigateTo(`/profile/${comment?.user[0].id}`)"
+                class="hover:cursor-pointer text-[14px] font-bold">{{
+                  comment?.user[0].name }}</p>
+              <p class="opacity-75 text-[16px]">{{ comment.text }}</p>
               <div class="flex w-full items-center justify-between gap-4 text-[14px] text-color-blur">
                 <p class="font-mono text-color-blur">
                   {{ formatDateTimeProvider(new Date(comment?.time)) }}

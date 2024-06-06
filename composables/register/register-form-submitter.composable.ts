@@ -13,7 +13,6 @@ export const registerFormSubmitterComposable = async <T extends Record<string, B
     if (response.errors) {
       registerFormValidationDataResponse(response.errors);
     } else {
-      await authenticationService.getUserAuthentication();
     }
   }
 };
