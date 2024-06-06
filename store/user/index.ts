@@ -16,7 +16,6 @@ export const useUserStore = defineStore("user", {
       following: [],
       follower: [],
       prefer: 0,
-      likedPost: [],
       favorite: [],
       liked: [],
     };
