@@ -1,7 +1,7 @@
 <template>
   <div class="grid md:flex justify-between">
     <div>
-      <div class="flex gap-2 items-center">
+      <div class="flex gap-2 items-end">
         <h3 class="text-xl font-medium text-black hover:underline">{{ post.user[0].name }}</h3>
         <h4>{{ post.user[0].name }}</h4>
       </div>
