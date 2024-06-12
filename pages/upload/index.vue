@@ -1,7 +1,7 @@
 <template>
   <nuxt-layout name="upload-layout">
     <div v-if="isUploading"
-      class="fixed flex items-center justify-center top-0 left-0 w-full bg-black z-50 bg-opacity-50">
+      class="fixed flex items-center justify-center top-0 left-0 w-full bg-black z-notification bg-opacity-50">
       <Icon class="animate-spin ml-1" name="mingcute:loading-line" size="100" color="#FFFFFF" />
     </div>
     <div class="w-full h-[calc(100%-60px)] bg-color-bg-creator flex items-center"

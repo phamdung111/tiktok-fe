@@ -4,11 +4,10 @@
       <top-nav></top-nav>
     </div>
     <div class="h-[100%-60px] mt-[60px]">
-      <div class="fixed h-full border-r border-r-gray-300">
+      <div class="h-full">
         <main-menu></main-menu>
       </div>
       <slot name="content" />
-
     </div>
   </div>
 </template>

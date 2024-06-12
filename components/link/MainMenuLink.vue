@@ -1,16 +1,11 @@
 <template>
-  <div class="flex items-center gap-2 group relative hover:cursor-pointer">
+  <div class="flex items-center gap-2 group hover:cursor-pointer">
     <div>
       <slot name="icon" />
     </div>
-    <div class="hidden lg:block">
+    <div
+      class="absolute left-width-nav-menu-tablet hidden hover:block lg:block group-hover:block opacity-60 lg:opacity-100 truncate">
       <slot name="text" />
-
-    </div>
-    <div class="absolute left-[55px] block lg:hidden">
-      <div class="hidden group-hover:block truncate opacity-60">
-        <slot name="textMobile" />
-      </div>
     </div>
   </div>
 </template>

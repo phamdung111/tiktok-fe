@@ -1,50 +1,55 @@
 <template>
-  <div class="h-[calc(100vh-60px)]">
-    <div class="flex justify-center h-full py-4 border-b gap-4 w-full">
-      <div class="flex gap-4">
-        <nuxt-link :to="`/profile/${post.user[0].id}`" class="basis-[50px]">
-          <img class="rounded-full w-[50px]" :src="post.user[0].image" alt="">
-        </nuxt-link>
-        <div class="w-full h-full flex flex-col gap-2">
-          <header-post :post="post"></header-post>
-          <div class="h-full flex items-end">
-            <video ref="video" @click="navigateTo(`/post/${post.id}`)"
-              class="rounded-xl object-cover h-full py-2 max-w-[450px] md:max-w-[600px] ove" :src="post.video" muted
-              autoplay loop controls></video>
-            <div class="grid gap-4 ml-2">
-              <div>
-                <like-button :post="post" :size="26" :direction-vertical="true" />
-              </div>
-              <div>
-                <button @click="navigateTo(`/post/${post.id}`)" class="grid items-center">
-                  <div class="flex justify-center items-center bg-gray-200 w-[40px] h-[40px] rounded-full opacity-85">
-                    <Icon name="mdi:chat" size="26" />
-                  </div>
-                  <div class="opacity-60 font-medium">
-                    {{ totalComments }}
-                  </div>
-                </button>
-              </div>
-              <favorite-button :post="post" :size="26" :direction-vertical="true" />
+  <div v-if="post" class="h-[calc(100vh-55px)] py-4 relative">
+    <div class="h-full w-full flex justify-center">
+      <div class="w-full h-full lg:w-auto relative">
+        <video-control :post="post" :perPost="false"></video-control>
+        <div class="absolute right-3 bottom-[30px] md:right-6 lg:right-0">
+          <div class="grid gap-4 ml-2">
+            <div class="relative mr-1 mb-2">
+              <avatar-user :image="post.user[0].image" :size="40"></avatar-user>
+              <follow-button :id-user-creator="post.user[0].id" :mini-size="true"></follow-button>
             </div>
+            <div>
+              <like-button :post="post" :size="35" :direction-vertical="true" />
+            </div>
+            <div @click="navigateTo(`post/${post.id}`)" class="cursor-pointer">
+              <div class="grid items-center justify-items-center">
+                <div class="flex justify-center items-center  w-[40px] h-[40px] rounded-full opacity-85">
+                  <Icon name="ph:chat-circle-dots-light" size="35" color="white" />
+                </div>
+                <div class="opacity-60 font-medium text-white">
+                  {{ totalComments }}
+                </div>
+              </div>
+            </div>
+            <favorite-button :post="post" :size="35" :direction-vertical="true" />
           </div>
         </div>
       </div>
     </div>
   </div>
 
-
 </template>
 
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
 import type { PostResponseInterface } from '~/interface/response/post/post-response.interface';
-import HeaderPost from './view/HeaderPost.vue';
+import VideoControl from '../video/VideoControl.vue';
 import LikeButton from '../button/LikeButton.vue';
 import FavoriteButton from '../button/FavoriteButton.vue';
-import { useUserStore } from '~/store/user';
+import CommentPostView from './comment/CommentPostView.vue';
+import AvatarUser from '../button/AvatarUser.vue';
+import FollowButton from '../button/FollowButton.vue';
 export default defineComponent({
-  components: { HeaderPost, LikeButton, FavoriteButton },
+  name: 'PostMain',
+  components: {
+    LikeButton,
+    FavoriteButton,
+    CommentPostView,
+    AvatarUser,
+    FollowButton,
+    VideoControl
+  },
   props: {
     post: {
       type: Object as PropType<PostResponseInterface>,
@@ -52,9 +57,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const user = useUserStore()
-    const video = ref()
-
+    const videoPlayer = ref<HTMLVideoElement | null>(null)
     const totalComments = computed(() => {
       let total = 0
       props.post.comments?.forEach(comment => {
@@ -62,9 +65,9 @@ export default defineComponent({
       })
       return total + props.post.comments?.length
     })
-
     return {
-      video, totalComments,
+      videoPlayer,
+      totalComments,
     }
   }
 })

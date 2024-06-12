@@ -3,6 +3,10 @@
     <div v-for="post in allPosts" :key="post.id">
       <post-main :post="post"></post-main>
     </div>
+    <!-- <div v-if="loading"
+      class="fixed flex items-center justify-center top-0 left-0 h-full w-full bg-black z-notification bg-opacity-50">
+      <Icon class="animate-spin ml-1" name="mingcute:loading-line" size="100" color="#FFFFFF" />
+    </div> -->
   </nuxt-layout>
 </template>
 
@@ -21,13 +25,36 @@ export default defineComponent({
   },
   setup() {
     const post = usePostStore()
+    const page = ref<number>(1)
+    const loading = ref(false)
     const allPosts = computed(() => {
       return post.allPosts
     })
+
+    const callbackApi = async () => {
+      if (loading.value) return
+
+      loading.value = true
+      await postsInitialDataComposable(page.value)
+      loading.value = false
+      page.value++
+    };
+
+    const handleScroll = () => {
+
+      if (
+        window.innerHeight + window.scrollY >= document.body.offsetHeight && !loading.value
+      ) {
+        callbackApi();
+      }
+    };
     onMounted(async () => {
-      await postsInitialDataComposable()
+      callbackApi()
+      window.addEventListener('scroll', handleScroll)
     })
-    return { allPosts }
+    return { allPosts, loading }
   }
 })
 </script>
+
+<style lang="css" scoped></style>

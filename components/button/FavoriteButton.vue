@@ -1,11 +1,11 @@
 <template>
   <div @click="isFavorite ? unFavorite() : favorite()"
     :class="directionVertical ? 'grid justify-center' : 'flex items-center gap-1'">
-    <div class="flex justify-center items-center bg-gray-200 w-[40px] h-[40px] rounded-full opacity-85"
+    <div class="flex justify-center items-center text-white lg:bg-gray-200 w-[40px] h-[40px] rounded-full opacity-85"
       :class="isFavorite ? 'text-yellow-400' : ''">
       <Icon name="carbon:bookmark-filled" :size="size.toString()" />
     </div>
-    <h4 class="opacity-60 font-medium text-center">
+    <h4 class="text-white lg:text-black opacity-60 font-medium text-center">
       {{ post.favorites?.length }}
     </h4>
   </div>

@@ -1,13 +1,9 @@
 <template>
-  <div>
-    <div>
-      <top-nav></top-nav>
-    </div>
-    <div class="mt-[60px]">
-      <div>
-        <main-menu></main-menu>
-      </div>
-      <div class="ml-width-nav-menu-mobile lg:ml-width-nav-menu-laptop h-full">
+  <div class="h-screen w-screen">
+    <top-nav />
+    <div class="mt-height-top-nav lg:flex h-full justify-between">
+      <main-menu />
+      <div class="w-full md:ml-width-nav-menu-tablet lg:ml-width-nav-menu-laptop h-[calc(100vh-55px)]">
         <slot />
       </div>
     </div>
@@ -27,5 +23,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style scoped></style>

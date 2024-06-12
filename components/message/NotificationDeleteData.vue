@@ -1,6 +1,6 @@
 <template>
   <div v-if="ui.notificationDeleteData?.length"
-    class="fixed top-0 right-0 z-200 flex justify-center items-center w-full h-full z-200">
+    class="fixed top-0 right-0 z-notification flex justify-center items-center w-full h-full bg-black bg-opacity-50">
     <div class="rounded-lg bg-white w-[310px]">
       <div class="px-[24px] py-[28px] text-[24px] font-bold text-center">
         Are you sure you want to delete this {{ ui.notificationDeleteData[0].itemDelete }}?

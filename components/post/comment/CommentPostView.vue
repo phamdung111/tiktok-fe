@@ -1,12 +1,8 @@
 <template>
-  <div v-if="comment" class="w-full justify-between items-center mt-4">
-    <div class="flex justify-between">
-      <div class="basis-1/12">
-        <div @click="navigateTo(`/profile/${comment?.user[0].id}`)" class="w-[40px] h-[40px] hover:cursor-pointer">
-          <img class="w-full h-full object-cover mx-auto rounded-full" :src="comment?.user[0].image" alt="">
-        </div>
-      </div>
-      <div class="basis-11/12 ml-2">
+  <div v-if="comment" class="w-full justify-between items-center mt-4 relative">
+    <div class="flex justify-start ">
+      <avatar-user :image="comment.user[0].image" :size="40"></avatar-user>
+      <div class="ml-2">
         <div class="grid">
           <div class="flex justify-between">
             <div class="w-full mb-2">
@@ -30,7 +26,7 @@
               class="px-3  py-1  rounded-sm">Post</button>
             <Icon @click="isReply = false" size="30" name="mdi:close" />
           </div>
-          <div class="relative pb-4">
+          <div class="pb-4">
             <div v-if="comment?.replies?.length && !seeReply" @click="seeReply = true"
               class="opacity-60 flex gap-1.5 items-center">
               <button class="hover:underline">See {{ comment?.replies.length }} answers</button>
@@ -40,9 +36,9 @@
               <div v-for="reply in comment?.replies" :key="reply.id" class="mb-2">
                 <reply-view :reply="reply" :commentId="comment.id" />
               </div>
-              <!-- <div v-if="comment?.replies?.length > 0" class="absolute bottom-0 right-0"> -->
-              <!-- <button @click="seeReply = false" class="text-[14px] text-color-blur">hide</button> -->
-              <!-- </div> -->
+              <div v-if="comment?.replies" class="absolute bottom-0 right-0">
+                <button @click="seeReply = false" class="text-[14px] text-color-blur">hide</button>
+              </div>
             </div>
           </div>
         </div>
@@ -54,6 +50,7 @@
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
 import DeleteData from '~/components/button/DeleteData.vue';
+import AvatarUser from '~/components/button/AvatarUser.vue';
 import { userReplyCommentFormData as form } from '~/composables/user/post/reply/user-reply-comment-form-data.composable';
 import { userReplyCommentSubmitComposable } from '~/composables/user/post/reply/user-reply-comment-submit.composable';
 import type { CommentInterface } from '~/interface/entity/comment/comment.interface';
@@ -61,7 +58,7 @@ import { formatDateTimeProvider } from '~/provider/format/date-time/format-date-
 import { useUserStore } from '~/store/user';
 import ReplyView from '../reply/ReplyView.vue';
 export default defineComponent({
-  components: { ReplyView, DeleteData },
+  components: { ReplyView, DeleteData, AvatarUser },
   name: 'CommentPostView',
   props: {
     comment: {

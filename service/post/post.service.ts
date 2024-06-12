@@ -2,9 +2,9 @@ import type { PostResponseInterface } from "~/interface/response/post/post-respo
 import { http } from "~/utils/http/http";
 
 export const postService = Object.freeze({
-  allPost: async (): Promise<PostResponseInterface[]> => {
+  infinityPosts: async (page: number): Promise<PostResponseInterface[]> => {
     try {
-      const response = await http().get("/api/getAllPosts");
+      const response = await http().get(`/api/posts?page=${page}`);
       return response.data;
     } catch (error) {
       throw error;

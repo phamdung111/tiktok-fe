@@ -2,7 +2,7 @@
   <div>
     <nuxt-layout name="profile-layout">
       <template #content>
-        <div class="h-full w-full ml-width-nav-menu-mobile lg:ml-width-nav-menu-laptop">
+        <div class="h-full w-full ml-width-nav-menu-tablet lg:ml-width-nav-menu-laptop">
           <div class="px-[24px] py-[32px]">
             <div class="w-full">
               <information-user :information="isMyProfile ? user : people"

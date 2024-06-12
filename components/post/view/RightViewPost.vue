@@ -1,10 +1,10 @@
 <template>
-  <div class="w-full basis-[600px] relative h-full">
+  <div class="w-full basis-[600px] relative h-full bg-white">
     <div class="h-full grid content-between">
       <div id="rightViewPost" class="relative mx-[32px] my-[24px] overflow-y-scroll overflow-x-hidden h-full">
         <div class="gird mx-5 p-4">
           <div class="h-[42px] mb-[15px] flex justify-between w-full">
-            <div class="flex gap-2 items-center hover:cursor-pointer">
+            <div class="flex gap-2 items-center hover:cursor-pointer bg-bg-primary rounded-xl">
               <img @click="navigateTo(`/profile/${postSelected?.user[0].id}`)" class="rounded-full h-full object-cover"
                 :src="postSelected?.user[0].image" alt="">
               <div @click="navigateTo(`/profile/${postSelected?.user[0].id}`)" class="hover:cursor-pointer">
@@ -38,11 +38,14 @@
         <div class="flex border-b pb-2">
           <button @click="isShowCreatorPosts = false"
             :class="isShowCreatorPosts ? '' : 'border-black font-bold border-b-[2px]'" class="basis-1/2">Comments({{
-            postSelected?.comments.length
+              postSelected?.comments.length
             }})</button>
           <button @click="showCreatorPosts()" :class="isShowCreatorPosts ? 'border-black font-bold border-b-[2px]' : ''"
-            class="basis-1/2">Creator's video
+            class="basis-1/2 hidden xl:block">Creator's video
           </button>
+        </div>
+        <div class="xl:hidden pb-6 border-b">
+          <form-user-comment :postSelected="postSelected" :isShowCreatorPosts="isShowCreatorPosts" />
         </div>
         <div>
           <div v-if="!isShowCreatorPosts">
@@ -57,7 +60,9 @@
           </div>
         </div>
       </div>
-      <form-user-comment :postSelected="postSelected" :isShowCreatorPosts="isShowCreatorPosts" />
+      <div class="hidden xl:block">
+        <form-user-comment :postSelected="postSelected" :isShowCreatorPosts="isShowCreatorPosts" />
+      </div>
     </div>
   </div>
 </template>

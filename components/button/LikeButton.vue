@@ -1,8 +1,8 @@
 <template>
   <div @click="isLike ? unLikePost() : likePost()"
-    :class="directionVertical ? 'grid justify-center' : 'flex items-center gap-1'" class="cursor-pointer">
+    :class="directionVertical ? 'grid justify-center' : 'flex items-center gap-1'" class="cursor-pointer text-white">
     <div :class="isLike ? 'text-red-primary' : ''">
-      <div class="flex justify-center items-center bg-gray-200 w-[40px] h-[40px] rounded-full opacity-85">
+      <div class="flex justify-center items-center xl:bg-gray-200 w-[40px] h-[40px] rounded-full opacity-85">
         <Icon name="mdi:heart" :size="size.toString()" />
       </div>
     </div>
