@@ -2,7 +2,7 @@
   <top-nav></top-nav>
   <div class="pt-[60px] flex w-full">
     <main-menu />
-    <div class="ml-width-nav-menu-mobile lg:ml-width-nav-menu-laptop w-full h-[calc(100vh-60px)]">
+    <div class="ml-width-nav-menu-tablet lg:ml-width-nav-menu-laptop w-full h-[calc(100vh-60px)]">
       <slot />
     </div>
   </div>

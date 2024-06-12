@@ -2,5 +2,5 @@ import type { PostResponseInterface } from "~/interface/response/post/post-respo
 
 export interface PostStoreStateInterface {
   postSelected: PostResponseInterface | null;
-  allPosts: PostResponseInterface[] | null;
+  allPosts: PostResponseInterface[];
 }

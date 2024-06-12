@@ -1,3 +1,4 @@
+import type { VolumeInterface } from "~/interface/entity/volume/volume-interface";
 import type { UiStoreStateInterface } from "~/interface/store/ui/ui-store-state.interface";
 import type { NotificationDeleteDataInterface } from "~/interface/ui/notification/notification-delete-data.interface";
 
@@ -5,7 +6,8 @@ export const useUiStore = defineStore("ui", {
   state: (): UiStoreStateInterface => {
     return {
       isOpenOverlay: false,
-      menuSelected: "",
+      isDisplayMenuMobile: false,
+      menuSelected: "/",
       popup: {
         isDisplayPopup: false,
         component: "",
@@ -13,6 +15,7 @@ export const useUiStore = defineStore("ui", {
       },
       isUploadPost: false,
       notificationDeleteData: [],
+      globalVolume: 0,
     };
   },
   actions: {
@@ -34,6 +37,12 @@ export const useUiStore = defineStore("ui", {
     },
     closeNotificationDeleteData() {
       this.notificationDeleteData = [];
+    },
+    openMenuMobile() {
+      this.isDisplayMenuMobile = true;
+    },
+    closeMenuMobile() {
+      this.isDisplayMenuMobile = false;
     },
   },
 });
