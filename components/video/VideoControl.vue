@@ -1,8 +1,9 @@
 <template>
   <div class="group h-full">
-    <div class="relative flex justify-center h-full box-border">
+    <div class="relative flex justify-center h-full ">
       <video ref="videoRef" muted loop preload="auto" @click="!perPost ? navigateTo(`/post/${post.id}`) : playPause()"
-        class="object-cover h-full w-full lg:py-2 lg:w-auto lg:rounded-2xl overflow-hidden">
+        class="object-cover h-full w-full lg:py-2 lg:w-auto lg:rounded-2xl overflow-hidden"
+        :class="perPost ? 'xl:aspect-2/3 h-full w-auto lg:py-0' : ''">
         <source :src="post.video">
       </video>
       <div class="absolute w-full bottom-0 left-0 text-white z-controlVideo pb-3">
@@ -12,7 +13,7 @@
           <h4>{{ post.text }}</h4>
           <Icon name="ph:music-notes-simple-fill"></Icon>
         </div>
-        <div class="flex justify-start items-center w-[90%] gap-2 px-2" :class="perPost ? 'w-full' : ''">
+        <div class="flex justify-start items-center gap-2 px-2" :class="perPost ? 'w-full' : ''">
           <Icon @click="playPause()" :name="isPlaying ? 'ic:sharp-pause' : 'material-symbols:play-arrow-rounded'"
             size="40"></Icon>
           <div class="w-full">
@@ -36,7 +37,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -56,7 +56,7 @@ export default defineComponent({
       default: false
     }
   },
-  setup() {
+  setup(props) {
     const videoRef = ref<HTMLVideoElement | null>(null)
     const isPlaying = ref(false)
     const totalTime = ref(0)
@@ -111,7 +111,6 @@ export default defineComponent({
       if (localVolume.muted) {
         volumeLevel.value = 0
         videoRef.value!.volume = 0
-
       } else {
         volumeLevel.value = localVolume.volume
         videoRef.value!.volume = localVolume.volume
@@ -145,7 +144,7 @@ export default defineComponent({
         threshold: 0.5,
       }
       const autoPlayVideo = () => {
-        if (videoRef.value) {
+        if (videoRef.value && !props.perPost) {
           let promiseVideo = videoRef.value.play()
           if (promiseVideo !== undefined) {
             promiseVideo.then((_ => {
@@ -166,6 +165,10 @@ export default defineComponent({
               }
             }))
           }
+        } else {
+          videoRef.value?.play()
+          isPlaying.value = true
+          getVolumeLocalStorage()
         }
       }
       autoPlayVideo()

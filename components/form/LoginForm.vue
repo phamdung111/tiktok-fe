@@ -6,10 +6,10 @@
     <div class="grid">
       <div @keyup.enter="login()" class="grid gap-2">
         <error-message :is-display="validation.email.isFailed" :message="validation.email.message" />
-        <input v-model="form.email" class="w-full h-[44px] px-3 input-bg-primary2-bg-primary" type="email"
+        <input v-model="form.email" class="w-full h-[44px] px-3 bg-primary22-bg-primary" type="email"
           placeholder="Email address">
         <error-message :is-display="validation.password.isFailed" :message="validation.password.message" />
-        <input v-model="form.password" class="w-full h-[44px] px-3 input-bg-primary2-bg-primary" type="password"
+        <input v-model="form.password" class="w-full h-[44px] px-3 bg-primary22-bg-primary" type="password"
           placeholder="Password">
         <button @click="login()"
           class="w-full h-[44px] rounded-sm bg-red-primary text-white font-semibold">Login</button>

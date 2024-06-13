@@ -1,15 +1,18 @@
 <template>
-  <div v-if="!isShowCreatorPosts" class="border-t p-2 w-full bg-white">
-    <div class="p-2 flex mr-8 gap-2 items-center justify-between w-full">
-      <div class="flex w-full gap-2 items-center">
-        <avatar-user v-if="user.id" :image="user.image" :size="40" />
-        <input v-model="form.text"
-          class="py-2 px-1 w-full overflow-hidden focus:outline bg-input-bg-primary2 rounded-md"
-          placeholder="Add comment..." type="text">
+  <div v-if="!isShowCreatorPosts">
+    <div class="flex gap-2 items-center justify-between w-full">
+      <div class="basis-[50px] items-center">
+        <avatar-user v-if="user.id" :image="user.image" :size="48" />
       </div>
-      <button @click="submitComment()" :disabled="!isComment"
-        :class="!isComment ? 'opacity-60' : 'bg-red-primary text-white'"
-        class="px-5 py-2 rounded-sm font-medium">Post</button>
+      <div class="flex ml-2 w-full gap-2">
+        <input v-model="form.text"
+          class="overflow-hidden py-[11px] w-full focus:outline-none focus:border-text-color-primary2 focus:ring-[1px] bg-bg-primary rounded-md cursor-pointer"
+          placeholder="Add comment..." type="text">
+        <button @click="submitComment()" :disabled="!isComment"
+          :class="!isComment ? 'opacity-60 border border-text-color-primary2' : 'bg-red-primary text-white'"
+          class="px-5 py-2 rounded-sm font-medium">Post</button>
+      </div>
+
     </div>
   </div>
 </template>

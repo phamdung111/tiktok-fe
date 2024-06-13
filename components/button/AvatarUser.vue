@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-full">
     <img class="cursor-pointer rounded-full" :class="`w-[${size}px] h-[${size}px]`" :src="image" alt="">
   </div>
 </template>

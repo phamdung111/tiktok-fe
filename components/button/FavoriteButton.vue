@@ -1,13 +1,17 @@
 <template>
   <div @click="isFavorite ? unFavorite() : favorite()"
-    :class="directionVertical ? 'grid justify-center' : 'flex items-center gap-1'">
-    <div class="flex justify-center items-center text-white lg:bg-gray-200 w-[40px] h-[40px] rounded-full opacity-85"
-      :class="isFavorite ? 'text-yellow-400' : ''">
-      <Icon name="carbon:bookmark-filled" :size="size.toString()" />
+    :class="directionVertical ? 'grid justify-center' : 'flex items-center gap-2'" class="cursor-pointer text-white">
+    <div class="text-text-color-primary">
+      <div :class="isFavorite ? 'text-red-primary' : 'text-black'"
+        class="flex justify-center items-center bg-bg-primary2 w-[40px] h-[40px] rounded-full">
+        <Icon name="material-symbols-light:bookmark-sharp" :size="size.toString()" />
+      </div>
     </div>
-    <h4 class="text-white lg:text-black opacity-60 font-medium text-center">
-      {{ post.favorites?.length }}
-    </h4>
+    <div>
+      <h4 class="text-text-color-primary2 font-medium text-center">
+        {{ favorites.length }}
+      </h4>
+    </div>
   </div>
 </template>
 
@@ -15,14 +19,18 @@
 import { defineComponent } from 'vue'
 import { userFavoritePostComposable } from '~/composables/user/post/favorite/user-favorite-post.composable';
 import { userUnfavoritePostComposable } from '~/composables/user/post/favorite/user-unfavorite-post.composable';
-import type { PostResponseInterface } from '~/interface/response/post/post-response.interface';
+import type { PostFavoriteResponseInterface } from '~/interface/response/post/favorite/post-favorite-response.inteface';
 import { useUserStore } from '~/store/user';
 export default defineComponent({
   name: 'FavoriteButton',
   props: {
-    post: {
-      type: Object as PropType<PostResponseInterface> | null,
+    favorites: {
+      type: Array as PropType<PostFavoriteResponseInterface[]>,
       default: []
+    },
+    postId: {
+      type: Number,
+      default: 0,
     },
     size: {
       type: Number,
@@ -36,20 +44,20 @@ export default defineComponent({
   setup(props) {
     const user = useUserStore()
     const favorite = async () => {
-      const response = await userFavoritePostComposable(props.post.id)
+      const response = await userFavoritePostComposable(props.postId)
       if (response.status === 200) {
-        props.post.favorites?.unshift({ 'userId': user.id })
+        props.favorites?.unshift({ 'userId': user.id })
       }
     }
     const unFavorite = async () => {
-      const response = await userUnfavoritePostComposable(props.post.id)
+      const response = await userUnfavoritePostComposable(props.postId)
       if (response.status === 200) {
-        const index = props.post.favorites!.findIndex(favorite => favorite.userId === user.id)
-        index >= 0 ? props.post.favorites?.splice(index, 1) : ''
+        const index = props.favorites!.findIndex(favorite => favorite.userId === user.id)
+        index >= 0 ? props.favorites?.splice(index, 1) : ''
       }
     }
     const isFavorite = computed(() => {
-      const favorite = props.post.favorites?.find(favorite => favorite.userId === user.id)
+      const favorite = props.favorites.find(favorite => favorite.userId === user.id)
       return favorite ? true : false
 
     })
