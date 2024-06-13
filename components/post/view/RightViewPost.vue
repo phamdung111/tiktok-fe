@@ -9,7 +9,7 @@
         <div class="mr-12">
           <h4 @click="goToProfile(postSelected.user[0].id)" class="text-[18px] font-bold cursor-pointer">{{
             postSelected.user[0].name
-            }}</h4>
+          }}</h4>
           <div class="text-text-color-primary2 flex">
             <h4>{{ postSelected.user[0].name }}</h4>
             <Icon name="ph:dot-bold" />
