@@ -2,7 +2,7 @@
   <div class="flex gap-1 justify-between">
     <div class="flex gap-2">
       <div class=" w-[30px] h-[30px] hover:cursor-pointer">
-        <avatar-user :image="reply?.user[0].image" :size="24" />
+        <avatar-user :image="reply?.user[0].image" :size="24" :user-id="reply.user[0].id" />
       </div>
       <div>
         <p @click="`/profile/${reply.user[0].id}`" class="font-semibold text-[14px]">{{ reply.user[0].name }}</p>
@@ -45,5 +45,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style scoped></style>

@@ -17,6 +17,9 @@
       <right-view-post :post-selected="postSelected" :is-show-creator-posts="isShowCreatorPosts"></right-view-post>
     </div>
   </div>
+  <div v-else>
+    <NotFoundBase :icon="`zondicons:video-camera`" :text="`Video is currently unavailable!`" />
+  </div>
 </template>
 
 <script lang="ts">
@@ -24,6 +27,7 @@ import PreButton from '../../button/direction/PreButton.vue';
 import NextButton from '../../button/direction/NextButton.vue';
 import RightViewPost from './RightViewPost.vue';
 import VideoControl from '~/components/video/VideoControl.vue';
+import NotFoundBase from '~/components/not-found/NotFoundBase.vue';
 import { defineComponent, type PropType } from 'vue'
 import { usePeopleStore } from '~/store/people';
 import { usePostStore } from '~/store/post';
@@ -33,7 +37,8 @@ export default defineComponent({
     PreButton,
     NextButton,
     RightViewPost,
-    VideoControl
+    VideoControl,
+    NotFoundBase
   },
   setup(props) {
     const post = usePostStore()

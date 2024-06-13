@@ -15,4 +15,5 @@ export interface PeopleStoreStateInterface {
   liked: PostInteractiveResponseInterface[] | null;
   favorite: PostInteractiveResponseInterface[] | null;
   isWatching: boolean;
+  status: number;
 }

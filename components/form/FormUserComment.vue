@@ -2,7 +2,7 @@
   <div v-if="!isShowCreatorPosts">
     <div class="flex gap-2 items-center justify-between w-full">
       <div class="basis-[50px] items-center">
-        <avatar-user v-if="user.id" :image="user.image" :size="48" />
+        <avatar-user v-if="user.id" :image="user.image" :size="48" :user-id="user.id" />
       </div>
       <div class="flex ml-2 w-full gap-2">
         <input v-model="form.text"
@@ -12,7 +12,6 @@
           :class="!isComment ? 'opacity-60 border border-text-color-primary2' : 'bg-red-primary text-white'"
           class="px-5 py-2 rounded-sm font-medium">Post</button>
       </div>
-
     </div>
   </div>
 </template>
@@ -59,5 +58,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style scoped></style>

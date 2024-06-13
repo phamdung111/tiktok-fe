@@ -9,7 +9,7 @@
       <div id="PopupMenu" class="border-b  z-menu">
         <div @click="goTo(`${MENU.MAIN.PROFILE.link}/${user.id}`)"
           class="flex items-center justify-start py-3 px-2 hover:bg-gray-100 cursor-pointer">
-          <avatar-user :size="32" :image="user.image"></avatar-user>
+          <avatar-user :size="32" :image="user.image" :user-id="user.id"></avatar-user>
           <span class="pl-2 font-semibold text-sm">Profile</span>
         </div>
         <div @click="logout()"

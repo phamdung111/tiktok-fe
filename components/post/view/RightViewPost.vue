@@ -4,7 +4,7 @@
     <div class="bg-bg-primary p-4 rounded-md">
       <div class="flex mb-4">
         <div @click="goToProfile(postSelected.user[0].id)" class="mr-3">
-          <avatar-user :image="postSelected.user[0].image" :size="48"></avatar-user>
+          <avatar-user :image="postSelected.user[0].image" :size="48" :user-id="postSelected.user[0].id"></avatar-user>
         </div>
         <div class="mr-12">
           <h4 @click="goToProfile(postSelected.user[0].id)" class="text-[18px] font-bold cursor-pointer">{{

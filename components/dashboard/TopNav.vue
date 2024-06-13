@@ -19,7 +19,6 @@
           <Icon name="ri:search-line" color="#A1A2A7" size="22" />
         </div>
       </div>
-
       <div class="hidden md:block">
         <div class="flex pr-6 pl-4 justify-between items-center h-full w-full relative">
           <div class="cursor-pointer" @click="goTo(MENU.MAIN.FOR_YOU.link)">
