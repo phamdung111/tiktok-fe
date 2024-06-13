@@ -1,68 +1,75 @@
 <template>
-  <div class="w-full basis-[600px] relative h-full bg-white">
-    <div class="h-full grid content-between">
-      <div id="rightViewPost" class="relative mx-[32px] my-[24px] overflow-y-scroll overflow-x-hidden h-full">
-        <div class="gird mx-5 p-4">
-          <div class="h-[42px] mb-[15px] flex justify-between w-full">
-            <div class="flex gap-2 items-center hover:cursor-pointer bg-bg-primary rounded-xl">
-              <img @click="navigateTo(`/profile/${postSelected?.user[0].id}`)" class="rounded-full h-full object-cover"
-                :src="postSelected?.user[0].image" alt="">
-              <div @click="navigateTo(`/profile/${postSelected?.user[0].id}`)" class="hover:cursor-pointer">
-                <h2 class="font-bold text-[25px]">{{ postSelected?.user[0].name }}</h2>
-                <h2 class="tex-color-blur">{{ postSelected?.user[0].name }}</h2>
-              </div>
-            </div>
-            <dir class="absolute top-0 right-0">
-              <div v-if="!isOwnerPost">
-                <follow-button :id-user-creator="postSelected.user[0].id"></follow-button>
-              </div>
-              <div v-else class="absolute top-0 right-0">
-                <delete-data :userOwn="postSelected.user[0].id" type="post" :idData="postSelected.id"></delete-data>
-              </div>
-            </dir>
-          </div>
-
-          <div class="text-color-blur">{{ postSelected?.text }}</div>
-          <div class="hover:cursor-pointer">
-            <Icon class="text-text-color-primary" name="mdi:music" />
-          </div>
-          <div class="w-full mt-4 flex gap-4 hover:cursor-pointer">
-            <like-button :post="postSelected" :size="18" :direction-vertical="false" />
-            <div class="flex gap-1 items-center hover:cursor-pointer">
-              <Icon name="mdi:chat" />
-              <p class="font-bold text-text-color-primary opacity-80">{{ postSelected?.comments.length }}</p>
-            </div>
-            <favorite-button :post="postSelected" :size="18" :direction-vertical="false"></favorite-button>
-          </div>
+  <div id="comment-view"
+    class="w-full text-text-color-primary text-[14px] xl:basis-[600px] xl:h-full px-8 xl:overflow-y-scroll xl:overflow-x-hidden relative">
+    <div class="bg-bg-primary p-4 rounded-md">
+      <div class="flex mb-4">
+        <div @click="goToProfile(postSelected.user[0].id)" class="mr-3">
+          <avatar-user :image="postSelected.user[0].image" :size="48"></avatar-user>
         </div>
-        <div class="flex border-b pb-2">
-          <button @click="isShowCreatorPosts = false"
-            :class="isShowCreatorPosts ? '' : 'border-black font-bold border-b-[2px]'" class="basis-1/2">Comments({{
-              postSelected?.comments.length
-            }})</button>
-          <button @click="showCreatorPosts()" :class="isShowCreatorPosts ? 'border-black font-bold border-b-[2px]' : ''"
-            class="basis-1/2 hidden xl:block">Creator's video
-          </button>
-        </div>
-        <div class="xl:hidden pb-6 border-b">
-          <form-user-comment :postSelected="postSelected" :isShowCreatorPosts="isShowCreatorPosts" />
+        <div class="mr-12">
+          <h4 @click="goToProfile(postSelected.user[0].id)" class="text-[18px] font-bold cursor-pointer">{{
+            postSelected.user[0].name
+          }}</h4>
+          <div class="text-text-color-primary2 flex">
+            <h4>{{ postSelected.user[0].name }}</h4>
+            <Icon name="ph:dot-bold" />
+            <h4>{{ formatDateTimeProvider(new Date(postSelected.created_at)) }}</h4>
+          </div>
         </div>
         <div>
-          <div v-if="!isShowCreatorPosts">
-            <div v-for="comment in postSelected?.comments" :key="comment.id">
-              <comment-post-view :comment="comment"></comment-post-view>
-            </div>
+          <follow-button :id-user-creator="postSelected.user[0].id"></follow-button>
+        </div>
+      </div>
+      <div>
+        <h5>{{ postSelected.text }}</h5>
+      </div>
+      <div class="mt-2 flex gap-1 items-center text-text-color-primary2">
+        <Icon name="mdi:music"></Icon>
+        <h5>soundtrack</h5>
+      </div>
+      <div class="pt-4 flex">
+        <div class="w-full mt-4 flex gap-4 hover:cursor-pointer">
+          <interact-post :post="postSelected" :size="20" :directionVertical="false"></interact-post>
+        </div>
+      </div>
+    </div>
+    <div class="hidden xl:block pt-[18px]">
+      <div class="flex border-b pb-2">
+        <button @click="isShowCreatorPosts = false"
+          :class="isShowCreatorPosts ? '' : 'border-black font-bold border-b-[2px]'" class="basis-1/2">Comments({{
+            postSelected?.comments.length
+          }})</button>
+        <button @click="showCreatorPosts()" :class="isShowCreatorPosts ? 'border-black font-bold border-b-[2px]' : ''"
+          class="basis-1/2 hidden xl:block">Creator's video
+        </button>
+      </div>
+
+    </div>
+    <div class="mt-6">
+      <div class="basis-[50px] xl:hidden">
+        <h4 class="text-[18px] font-bold text-text-color-primary">{{ postSelected.comments.length }} comments</h4>
+      </div>
+      <div class="mt-4">
+        <div class="grid">
+          <div class="pb-6 border-b xl:hidden">
+            <form-user-comment :postSelected="postSelected" :isShowCreatorPosts="isShowCreatorPosts" />
           </div>
-          <div v-else class="grid grid-cols-3 gap-2">
-            <div v-for="post in videos" :key="post.id">
-              <creator-video :post="post" />
+          <div>
+            <div v-if="!isShowCreatorPosts">
+              <comment-post-view v-for="comment in postSelected.comments" :comment="comment"
+                :key="comment.id"></comment-post-view>
+            </div>
+            <div v-else class="grid grid-cols-3 gap-2">
+              <div v-for="post in videos" :key="post.id">
+                <creator-video :post="post" />
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="hidden xl:block">
-        <form-user-comment :postSelected="postSelected" :isShowCreatorPosts="isShowCreatorPosts" />
-      </div>
+    </div>
+    <div class="pb-6 border-t hidden xl:block bottom-0 py-5 fixed z-menu xl:bg-white">
+      <form-user-comment :postSelected="postSelected" :isShowCreatorPosts="isShowCreatorPosts" />
     </div>
   </div>
 </template>
@@ -75,11 +82,13 @@ import LikeButton from '../../button/LikeButton.vue';
 import FavoriteButton from '../../button/FavoriteButton.vue';
 import FormUserComment from '../../form/FormUserComment.vue';
 import FollowButton from '~/components/button/FollowButton.vue';
-
+import AvatarUser from '~/components/button/AvatarUser.vue';
+import DeleteData from '~/components/button/DeleteData.vue';
+import InteractPost from '~/components/button/interact/InteractPost.vue';
 import type { PostResponseInterface } from '~/interface/response/post/post-response.interface';
 import { usePeopleStore } from '~/store/people';
 import { useUserStore } from '~/store/user';
-import DeleteData from '~/components/button/DeleteData.vue';
+import { formatDateTimeProvider } from '~/provider/format/date-time/format-date-time.provider';
 import { peopleInitialDataComposable } from '~/composables/people/initial-data/people-initial-data.composable';
 export default defineComponent({
   name: 'RightViewPost',
@@ -90,7 +99,9 @@ export default defineComponent({
     FavoriteButton,
     FormUserComment,
     FollowButton,
-    DeleteData
+    DeleteData,
+    AvatarUser,
+    InteractPost
   },
   props: {
     postSelected: {
@@ -114,16 +125,27 @@ export default defineComponent({
       await peopleInitialDataComposable(Number(props.postSelected?.user[0].id))
       isShowCreatorPosts.value = true
     }
+    const goToProfile = (userId: number) => {
+      navigateTo(`/profile/${userId}`)
+    }
     onMounted(() => {
       people.isWatching ? isShowCreatorPosts.value = true : ''
     })
-    return { isShowCreatorPosts, videos, showCreatorPosts, isOwnerPost }
+    return {
+      user,
+      isShowCreatorPosts,
+      videos,
+      isOwnerPost,
+      showCreatorPosts,
+      formatDateTimeProvider,
+      goToProfile
+    }
   }
 })
 </script>
 
 <style scoped lang="css">
-#rightViewPost::-webkit-scrollbar {
+#comment-view::-webkit-scrollbar {
   display: none;
 }
 </style>

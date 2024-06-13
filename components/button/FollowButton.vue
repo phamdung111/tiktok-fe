@@ -1,8 +1,9 @@
 <template>
   <div v-if="user.id != idUserCreator" @click="isFollow ? unFollowCreator() : followCreator()"
     class="hover:cursor-pointer">
-    <div v-if="!miniSize" :class="isFollow ? 'border border-gray-300' : 'text-red-primary border border-red-primary'"
-      class=" font-bold px-5 py-2 rounded-sm hover:bg-red-primary-2 max-w-[100px] my-2">
+    <div v-if="!miniSize"
+      :class="isFollow ? 'border border-gray-300' : 'text-white bg-red-primary border border-red-primary'"
+      class=" font-bold px-5 py-2 rounded-sm hover:opacity-90 max-w-[100px] my-2">
       {{ isFollow ? 'Following' : 'Follow' }}
     </div>
     <div v-else

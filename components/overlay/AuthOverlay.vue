@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen w-screen fixed top-0 left-0 flex items-center justify-center">
+  <div class="h-screen w-screen fixed top-0 left-0 flex items-center justify-center z-overlay">
     <div class="fixed left-0 top-0 w-screen h-screen bg-color-wrap flex justify-center items-center">
       <div class="h-[644px] w-[483px] bg-white rounded-md relative">
 

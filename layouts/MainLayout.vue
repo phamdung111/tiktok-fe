@@ -1,9 +1,9 @@
 <template>
-  <div class="h-screen w-screen">
+  <div>
     <top-nav />
-    <div class="mt-height-top-nav lg:flex h-full justify-between">
+    <div class="h-[calc(100vh-55px)] mt-height-top-nav lg:flex justify-between">
       <main-menu />
-      <div class="w-full md:ml-width-nav-menu-tablet lg:ml-width-nav-menu-laptop h-[calc(100vh-55px)]">
+      <div class="w-full md:ml-width-nav-menu-tablet lg:ml-width-nav-menu-laptop">
         <slot />
       </div>
     </div>

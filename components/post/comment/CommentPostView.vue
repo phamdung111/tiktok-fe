@@ -1,49 +1,47 @@
 <template>
   <div v-if="comment" class="w-full justify-between items-center mt-4 relative">
-    <div class="flex justify-start ">
-      <avatar-user :image="comment.user[0].image" :size="40"></avatar-user>
-      <div class="ml-2">
-        <div class="grid">
-          <div class="flex justify-between">
-            <div class="w-full mb-2">
-              <p @click="navigateTo(`/profile/${comment?.user[0].id}`)"
-                class="hover:cursor-pointer text-[14px] font-bold">{{
-                  comment?.user[0].name }}</p>
-              <p class="opacity-75 text-[16px]">{{ comment.text }}</p>
-              <div class="flex w-full items-center justify-between gap-4 text-[14px] text-color-blur">
-                <p class="font-mono text-color-blur">
-                  {{ formatDateTimeProvider(new Date(comment?.time)) }}
-                </p>
-                <button @click="isReply = true" class="hover:underline">Reply</button>
-              </div>
-            </div>
-            <delete-data :userOwn="comment.user[0].id" type="comment" :idData="comment.id"></delete-data>
+    <div class="flex justify-between mb-4">
+      <div class="basis-[50px] mr-4">
+        <avatar-user :image="comment.user[0].image" :size="48"></avatar-user>
+      </div>
+      <div class="flex w-full justify-between items-center">
+        <div class="w-full">
+          <h4 class="font-semibold text-[14px]">{{ comment.user[0].name }}</h4>
+          <h4 class="text-text-color-primary2 mb-[6px]">{{ comment.text }}</h4>
+          <div class="flex">
+            <h5 class="text-[14px] text-text-color-blur">{{ formatDateTimeProvider(new Date(comment.time)) }}</h5>
+            <span @click="isReply = true" class="hover:underline ml-6 font-medium">Reply</span>
           </div>
-          <div v-if="isReply" class="flex items-center w-full mt-1 gap-2 mb-3">
-            <input v-model="form.text" class="bg-yellow-100 rounded-sm w-full py-1 border pl-1 focus:outline"
-              placeholder="Add answer" type="text">
-            <button :disabled="!form.text" @click="summitReply()" :class="form.text ? 'bg-red-primary text-white' : ''"
-              class="px-3  py-1  rounded-sm">Post</button>
-            <Icon @click="isReply = false" size="30" name="mdi:close" />
-          </div>
-          <div class="pb-4">
-            <div v-if="comment?.replies?.length && !seeReply" @click="seeReply = true"
-              class="opacity-60 flex gap-1.5 items-center">
-              <button class="hover:underline">See {{ comment?.replies.length }} answers</button>
-              <Icon size="22" name="iconamoon:arrow-down-2-duotone" />
-            </div>
-            <div v-if="seeReply">
-              <div v-for="reply in comment?.replies" :key="reply.id" class="mb-2">
-                <reply-view :reply="reply" :commentId="comment.id" />
-              </div>
-              <div v-if="comment?.replies" class="absolute bottom-0 right-0">
-                <button @click="seeReply = false" class="text-[14px] text-color-blur">hide</button>
-              </div>
-            </div>
-          </div>
+        </div>
+        <div>
+          <delete-data :userOwn="comment.user[0].id" type="comment" :idData="comment.id"></delete-data>
         </div>
       </div>
     </div>
+    <div v-if="isReply" class="flex items-center w-full mt-1 gap-2 mb-3 pl-[52px]">
+      <input v-model="textReply"
+        class="py-[11px] w-full focus:outline-none focus:border-text-color-primary2 focus:ring-[1px] bg-bg-primary rounded-md cursor-pointer"
+        placeholder="Add answer..." type="text">
+      <button :disabled="!textReply" @click="summitReply()"
+        :class="textReply ? 'bg-red-primary text-white' : 'opacity-60 border border-text-color-primary2'"
+        class="px-5 py-2 rounded-sm font-medium">Post</button>
+      <Icon @click="closeReply()" size="30" name="mdi:close" />
+    </div>
+    <div v-if="comment?.replies?.length" class="pb-4 pl-[52px]">
+      <div v-if="!seeReply" @click="seeReply = true" class="opacity-60 flex gap-1.5 items-center">
+        <button class="hover:underline">See {{ comment?.replies.length }} answers</button>
+        <Icon size="22" name="iconamoon:arrow-down-2-duotone" />
+      </div>
+      <div v-else>
+        <div v-for="reply in comment?.replies" :key="reply.id" class="mb-2">
+          <reply-view :reply="reply" :commentId="comment.id" />
+        </div>
+        <div v-if="comment?.replies" class="absolute bottom-0 right-0">
+          <button @click="seeReply = false" class="text-[14px] text-color-blur">hide</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -70,16 +68,22 @@ export default defineComponent({
     const user = useUserStore()
     const isReply = ref(false)
     const seeReply = ref(false)
+    const textReply = ref('')
     const summitReply = async () => {
       form.comment_id = props.comment.id
+      form.text = textReply.value
       await userReplyCommentSubmitComposable()
       isReply.value = false
     }
-
+    const closeReply = () => {
+      isReply.value = false
+      textReply.value = ""
+      form.text = ""
+    }
     watch(() => isReply, () => {
 
     })
-    return { user, summitReply, isReply, form, seeReply, formatDateTimeProvider }
+    return { user, textReply, isReply, form, seeReply, formatDateTimeProvider, closeReply, summitReply }
   }
 })
 </script>

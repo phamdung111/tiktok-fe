@@ -1,5 +1,5 @@
 <template>
-  <div v-if="postSelected" class="w-full h-full flex items-center">
+  <div v-if="postSelected" class="w-full h-full auto flex items-center">
     <div class="grid w-full h-full xl:flex justify-center relative">
       <div class="relative w-full h-full flex justify-center xl:bg-black xl:bg-opacity-35">
         <button @click="exitWatchPostsCreator()"

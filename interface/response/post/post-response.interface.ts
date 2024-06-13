@@ -7,9 +7,9 @@ export interface PostResponseInterface {
   id: number;
   text: string;
   comments: CommentInterface[];
-  likes: PostLikeResponseInterface[] | null;
+  likes: PostLikeResponseInterface[];
   user: UserStoreStateInterface[];
   video: string;
-  createdAt: string | Date;
-  favorites: PostFavoriteResponseInterface[] | null;
+  created_at: string | Date;
+  favorites: PostFavoriteResponseInterface[];
 }
