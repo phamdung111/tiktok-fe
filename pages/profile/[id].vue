@@ -1,17 +1,18 @@
 <template>
   <div>
-    <nuxt-layout name="profile-layout">
-      <template #content>
-        <div class="h-full w-full ml-width-nav-menu-tablet lg:ml-width-nav-menu-laptop">
-          <div class="px-[24px] py-[32px]">
-            <div class="w-full">
-              <information-user :information="isMyProfile ? user : people"
-                :isMyProfile="isMyProfile"></information-user>
-            </div>
-          </div>
+    <nuxt-layout name="main-layout">
+      <div class="px-[24px] py-[32px] w-full">
+        <dir v-if="people.status === 200">
+          <information-user :information="people" :isMyProfile="isMyProfile"></information-user>
+        </dir>
+        <div v-else-if="people.status === 404">
+          <not-found-base :icon="`bx:user`" :text="`This account can't be found!`" />
         </div>
-        <popup-component></popup-component>
-      </template>
+        <div v-else>
+          <notification-base />
+        </div>
+      </div>
+      <popup-component></popup-component>
     </nuxt-layout>
   </div>
 </template>
@@ -21,7 +22,8 @@ import { defineComponent } from 'vue'
 
 import InformationUser from '~/components/profile/InformationUser.vue';
 import PopupComponent from '~/components/popup/PopupComponent.vue'
-
+import NotFoundBase from '~/components/not-found/NotFoundBase.vue';
+import NotificationBase from '~/components/message/NotificationBase.vue';
 import { usePeopleStore } from '~/store/people';
 import { useUserStore } from '~/store/user';
 import { peopleInitialDataComposable } from '~/composables/people/initial-data/people-initial-data.composable';
@@ -29,7 +31,9 @@ import { peopleInitialDataComposable } from '~/composables/people/initial-data/p
 export default defineComponent({
   components: {
     InformationUser,
-    PopupComponent
+    PopupComponent,
+    NotFoundBase,
+    NotificationBase
   },
   setup() {
     const route = useRoute()
@@ -46,5 +50,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style scoped></style>

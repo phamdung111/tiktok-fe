@@ -6,7 +6,7 @@
         <div class="h-full flex items-end ml-2">
           <div class="grid gap-4">
             <div class="relative">
-              <avatar-user :image="post.user[0].image" :size="40"></avatar-user>
+              <avatar-user :image="post.user[0].image" :size="40" :user-id="post.user[0].id"></avatar-user>
               <follow-button class="absolute bottom-0 left-3/4" :id-user-creator="post.user[0].id"
                 :mini-size="true"></follow-button>
             </div>

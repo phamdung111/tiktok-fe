@@ -17,6 +17,7 @@ export const usePeopleStore = defineStore("people", {
       liked: [],
       favorite: [],
       isWatching: false,
+      status: 0,
     };
   },
   getters: {
@@ -40,6 +41,9 @@ export const usePeopleStore = defineStore("people", {
     },
     setPostSelected(post: PostResponseInterface | null) {
       this.postSelected = post;
+    },
+    setStatus(status: number) {
+      this.status = status;
     },
   },
 });

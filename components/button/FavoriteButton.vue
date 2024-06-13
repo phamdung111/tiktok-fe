@@ -2,7 +2,7 @@
   <div @click="isFavorite ? unFavorite() : favorite()"
     :class="directionVertical ? 'grid justify-center' : 'flex items-center gap-2'" class="cursor-pointer text-white">
     <div class="text-text-color-primary">
-      <div :class="isFavorite ? 'text-red-primary' : 'text-black'"
+      <div :class="isFavorite ? 'text-bg-primary3' : 'text-black'"
         class="flex justify-center items-center bg-bg-primary2 w-[40px] h-[40px] rounded-full">
         <Icon name="material-symbols-light:bookmark-sharp" :size="size.toString()" />
       </div>

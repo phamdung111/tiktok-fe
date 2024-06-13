@@ -2,7 +2,7 @@
   <div v-if="comment" class="w-full justify-between items-center mt-4 relative">
     <div class="flex justify-between mb-4">
       <div class="basis-[50px] mr-4">
-        <avatar-user :image="comment.user[0].image" :size="48"></avatar-user>
+        <avatar-user :image="comment.user[0].image" :size="48" :user-id="comment.user[0].id"></avatar-user>
       </div>
       <div class="flex w-full justify-between items-center">
         <div class="w-full">
@@ -87,5 +87,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style scoped></style>
