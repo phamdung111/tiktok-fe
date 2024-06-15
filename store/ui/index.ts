@@ -5,6 +5,7 @@ import type { NotificationDeleteDataInterface } from "~/interface/ui/notificatio
 export const useUiStore = defineStore("ui", {
   state: (): UiStoreStateInterface => {
     return {
+      isLoading: false,
       isOpenOverlay: false,
       isDisplayMenuMobile: false,
       menuSelected: "/",

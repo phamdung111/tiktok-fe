@@ -8,22 +8,14 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { postsInitialDataComposable } from '~/composables/post/initial-data/posts-initial-data.composable';
-import { ROUTES } from '~/constant/route/route.constant';
-import PostMain from '~/components/post/PostMain.vue';
-import { usePostStore } from '~/store/post';
-import { useUiStore } from '~/store/ui';
+import { postsFollowingInitialDataComposable } from '~/composables/post/initial-data/posts-following-initial-data.composable';
+import { POST } from '~/constant/post/post.constant';
 import { infinityPosts } from '~/processor/infinity-scroll/infinity-posts.processor';
-definePageMeta({
-  name: ROUTES.APP.HOME
-})
+import { usePostStore } from '~/store/post';
 export default defineComponent({
-  components: {
-    PostMain
-  },
   setup() {
     const post = usePostStore()
-    infinityPosts(postsInitialDataComposable)
+    infinityPosts(postsFollowingInitialDataComposable)
     return { post }
   }
 })

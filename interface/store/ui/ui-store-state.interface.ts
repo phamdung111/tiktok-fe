@@ -13,4 +13,5 @@ export interface UiStoreStateInterface {
   isUploadPost: boolean;
   notificationDeleteData: NotificationDeleteDataInterface[] | null;
   globalVolume: number;
+  isLoading: boolean;
 }

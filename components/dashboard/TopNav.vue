@@ -25,7 +25,7 @@
             <img class="logo" src="/assets//images/tiktok-logo.png" width="118" alt="">
           </div>
           <div
-            class="hidden sm:flex items-center bg-bg-primary22 p-1 rounded-full sm:max-w-[200px] md:max-w-[380px] lg:max-w-[580px] w-full">
+            class="hidden sm:flex items-center bg-bg-primary2 p-1 rounded-full sm:max-w-[200px] md:max-w-[380px] lg:max-w-[580px] w-full">
             <input type="text"
               class="w-full pl-3 my-2 bg-transparent placeholder-[#838383] text-[15px] focus:outline-none"
               placeholder="Search accounts" />

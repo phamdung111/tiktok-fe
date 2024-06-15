@@ -5,12 +5,11 @@
     <h4 class="opacity-70">Your videos will appear here</h4>
   </div>
   <div v-else class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-2">
-    <div class="h-[300px] bg-red-500" v-for="post in information.videos" :key="post.id">
-
-      <!-- <div class="w-full h-full">
+    <div class="" v-for="post in information.videos" :key="post.id">
+      <div class="aspect-2/3">
         <video @click="showPost(post.id)" :src="post.video" class="h-full w-full object-cover"></video>
       </div>
-      <h4 class="overflow-ellipsis overflow-hidden">{{ post.text }}</h4> -->
+      <h4 class="overflow-ellipsis overflow-hidden">{{ post.text }}</h4>
     </div>
   </div>
 </template>
