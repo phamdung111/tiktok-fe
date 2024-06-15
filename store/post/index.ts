@@ -9,7 +9,7 @@ export const usePostStore = defineStore("post", {
     };
   },
   actions: {
-    infinityPosts(posts: PostResponseInterface[]) {
+    posts(posts: PostResponseInterface[]) {
       posts.forEach((post) => this.allPosts.push(post));
     },
     setPostSelected(post: PostResponseInterface | null) {

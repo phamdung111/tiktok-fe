@@ -4,7 +4,7 @@
     <h3 class="text-[17px] font-medium mb-4">Favorite posts</h3>
     <h4 class="opacity-70">Your favorite posts will appear here.</h4>
   </div>
-  <div v-else class="mt-3 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
+  <div v-else class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-2">
     <div v-for="post in information.favorite" :key="post.id">
       <div class="aspect-2/3">
         <video @click="showPost(post.postId)" :src="post.video" class="h-full w-full object-cover"></video>

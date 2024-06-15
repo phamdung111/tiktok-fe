@@ -3,8 +3,7 @@
     <div class="relative flex justify-center h-full ">
       <video ref="videoRef" muted loop preload="auto" @click="!perPost ? navigateTo(`/post/${post.id}`) : playPause()"
         class="object-cover h-full w-full lg:py-2 lg:w-auto lg:rounded-2xl overflow-hidden"
-        :class="perPost ? 'xl:aspect-2/3 h-full w-auto lg:py-0' : ''">
-        <source :src="post.video">
+        :class="perPost ? 'xl:aspect-2/3 h-full w-auto lg:py-0' : ''" :src="post.video">
       </video>
       <div class="absolute w-full bottom-0 left-0 text-white z-controlVideo pb-3">
         <div v-if="!perPost" class="grid gap-3 pl-3">
