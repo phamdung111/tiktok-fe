@@ -3,7 +3,7 @@
     <div class="h-full w-full flex justify-center">
       <div class="h-full w-auto flex">
         <video-control :post="post" :perPost="false"></video-control>
-        <div class="h-full flex items-end ml-2">
+        <div class="h-full basis-[48px] flex items-end ml-2 pb-3">
           <div class="grid gap-4">
             <div class="relative">
               <avatar-user :image="post.user[0].image" :size="40" :user-id="post.user[0].id"></avatar-user>

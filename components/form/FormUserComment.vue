@@ -5,7 +5,7 @@
         <avatar-user v-if="user.id" :image="user.image" :size="48" :user-id="user.id" />
       </div>
       <div class="flex ml-2 w-full gap-2">
-        <input v-model="form.text"
+        <input v-model="form.text" @keyup.enter="submitComment()"
           class="overflow-hidden py-[11px] w-full focus:outline-none focus:border-text-color-primary2 focus:ring-[1px] bg-bg-primary rounded-md cursor-pointer"
           placeholder="Add comment..." type="text">
         <button @click="submitComment()" :disabled="!isComment"
@@ -49,6 +49,7 @@ export default defineComponent({
       } else {
         form.post_id = Number(props.postSelected?.id)
         await userCommentPostSubmitComposable()
+        form.text = ''
       }
     }
     watch(() => form.text, () => {

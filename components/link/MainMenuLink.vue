@@ -12,12 +12,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useUiStore } from '~/store/ui';
 export default defineComponent({
   name: 'MainMenuLink',
   setup() {
-    const ui = useUiStore()
-
     return {}
   }
 })

@@ -20,16 +20,10 @@
   <div class="pt-2">
     <h2 class="opacity-75 font-normal">{{ information.bio ? information.bio : 'No biography yet.' }}</h2>
   </div>
-  <div class="flex mt-6">
-    <div v-for="(tab, index) in (isMyProfile ? tabsMyProfile : tabsDefault)" :key="index">
-      <tab-switch-profile @click="currentTab = index" :tab="tab"
-        :class="currentTab === index ? 'border-black border-b-2' : ''"></tab-switch-profile>
-    </div>
+  <div class="mt-6">
+    <tab-switch :tabs="tabs" :tab-default="tabDefault" @tab-selected="tabSelected"></tab-switch>
   </div>
-  <div class="w-full">
-    <component :is="`Profile${tabsMyProfile[currentTab].value}`" :information="information" :isMyProfile="isMyProfile">
-    </component>
-  </div>
+
 </template>
 
 <script lang="ts">
@@ -41,9 +35,9 @@ import ProfileFavorite from './ProfileFavorite.vue';
 import ProfileLiked from './ProfileLiked.vue';
 import InteractUser from './InteractUser.vue';
 import EditProfileForm from './EditProfileForm.vue';
-import TabSwitchProfile from '../tab/TabSwitchProfile.vue';
+import TabSwitch from '../tab/TabSwitch.vue';
 import FollowButton from '../button/FollowButton.vue';
-import type { TabSwitchProfileInterface } from '~/interface/ui/tab-switch/tab-switch-profile.interface';
+import type { TabSwitchInterface } from '~/interface/ui/tab-switch/tab-switch.interface';
 import type { PeopleResponseInterface } from '~/interface/response/people/people-response.inteface';
 import type { UserStoreStateInterface } from '~/interface/store/user/user-store-state.interface';
 export default defineComponent({
@@ -51,7 +45,7 @@ export default defineComponent({
     ProfileVideo,
     InteractUser,
     EditProfileForm,
-    TabSwitchProfile,
+    TabSwitch,
     ProfileFavorite,
     ProfileLiked,
     FollowButton
@@ -72,30 +66,43 @@ export default defineComponent({
     const ui = useUiStore()
     const route = useRoute()
     const currentTab = ref(0)
-    const tabsMyProfile: TabSwitchProfileInterface[] = [
+    const tabDefault = ref(0)
+    const tabs: TabSwitchInterface[] = [
       {
         value: 'Video',
-        icon: ''
+        icon: '',
+        component: ProfileVideo
       },
       {
         value: 'Favorite',
-        icon: ''
+        icon: '',
+        component: ProfileFavorite
       },
       {
         value: 'Liked',
-        icon: ''
-      }
-    ]
-    const tabsDefault: TabSwitchProfileInterface[] = [
-      {
-        value: 'Video',
-        icon: ''
+        icon: '',
+        component: ProfileLiked
       }
     ]
     const openEditProfileForm = () => {
       ui.openPopup(EditProfileForm)
     }
-    return { user, openEditProfileForm, tabsMyProfile, currentTab, route, tabsDefault }
+    const tabSelected = (tabSelected: TabSwitchInterface) => {
+      let tabIndex = tabs.findIndex(tab => tab.value === tabSelected.value)
+      currentTab.value = tabIndex
+      tabDefault.value = tabIndex
+      console.log(currentTab.value);
+
+    }
+    return {
+      user,
+      tabs,
+      currentTab,
+      route,
+      tabDefault,
+      openEditProfileForm,
+      tabSelected
+    }
   }
 })
 </script>

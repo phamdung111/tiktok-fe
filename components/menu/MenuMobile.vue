@@ -7,7 +7,20 @@
     <div class="mt-10">
 
       <div id="PopupMenu" class="border-b  z-menu">
+        <div @click="goTo(`${MENU.MAIN.FOR_YOU.link}`)"
+          :class="ui.menuSelected === MENU.MAIN.FOR_YOU.link ? 'text-red-primary' : ''"
+          class="flex items-center justify-start py-3 px-1.5 hover:bg-gray-100 border-t cursor-pointer">
+          <Icon :name="MENU.MAIN.FOR_YOU.icon" size="30" />
+          <span class="pl-2 font-semibold text-sm">{{ MENU.MAIN.FOR_YOU.text }}</span>
+        </div>
+        <div @click="goTo(`${MENU.MAIN.FOLLOWING.link}`)"
+          :class="ui.menuSelected === MENU.MAIN.FOLLOWING.link ? 'text-red-primary' : ''"
+          class="flex items-center justify-start py-3 px-1.5 hover:bg-gray-100 border-t cursor-pointer">
+          <Icon :name="MENU.MAIN.FOLLOWING.icon" size="30" />
+          <span class="pl-2 font-semibold text-sm">{{ MENU.MAIN.FOLLOWING.text }}</span>
+        </div>
         <div @click="goTo(`${MENU.MAIN.PROFILE.link}/${user.id}`)"
+          :class="ui.menuSelected === MENU.MAIN.PROFILE.link ? 'text-red-primary' : ''"
           class="flex items-center justify-start py-3 px-2 hover:bg-gray-100 cursor-pointer">
           <avatar-user :size="32" :image="user.image" :user-id="user.id"></avatar-user>
           <span class="pl-2 font-semibold text-sm">Profile</span>
@@ -16,6 +29,7 @@
           class="flex items-center justify-start py-3 px-1.5 hover:bg-gray-100 border-t cursor-pointer">
           <Icon name="ic:outline-login" size="20" />
           <span class="pl-2 font-semibold text-sm">Log out</span>
+
         </div>
       </div>
     </div>

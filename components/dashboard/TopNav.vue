@@ -1,7 +1,7 @@
 <template>
   <div class="fixed top-0 h-height-top-nav flex lg:bottom-0 items-center border-b border-b-gray-300 bg-white z-menu">
     <div class="z-menu w-screen">
-      <div id="top-nav-mobile" class="md:hidden w-full flex justify-center relative">
+      <div id="top-nav-mobile" class="md:hidden w-full flex justify-center relative items-center">
         <div @click="goTo(MENU.MAIN.FOR_YOU.link)" class="cursor-pointer">
           <img src="/assets//images/tiktok-logo.png" width="118" alt="">
         </div>
@@ -16,7 +16,9 @@
               <span class="text-[16px]">Upload</span>
             </div>
           </nuxt-link>
-          <Icon name="ri:search-line" color="#A1A2A7" size="22" />
+          <div>
+            <Icon name="ri:search-line" color="#A1A2A7" size="22" />
+          </div>
         </div>
       </div>
       <div class="hidden md:block">
@@ -26,10 +28,10 @@
           </div>
           <div
             class="hidden sm:flex items-center bg-bg-primary2 p-1 rounded-full sm:max-w-[200px] md:max-w-[380px] lg:max-w-[580px] w-full">
-            <input type="text"
+            <input v-model="dataSearch" @keyup.enter="search()" type="text"
               class="w-full pl-3 my-2 bg-transparent placeholder-[#838383] text-[15px] focus:outline-none"
               placeholder="Search accounts" />
-            <div class="px-3 py-1 flex items-center border-l border-l-gray-300">
+            <div @click="dataSearch ? search() : ''" class="px-3 py-1 flex items-center border-l border-l-gray-300">
               <Icon name="ri:search-line" color="#A1A2A7" size="22" />
             </div>
           </div>
@@ -46,12 +48,12 @@
               Log in
             </div>
             <div v-else class="flex gap-3 items-center ml-2">
-              <div class="cursor-pointer">
+              <!-- <div class="cursor-pointer">
                 <Icon name="ph:paper-plane-tilt-bold" size="22" />
               </div>
               <div class="cursor-pointer">
                 <Icon name="ri:message-line" size="22" />
-              </div>
+              </div> -->
               <div @click="showMenuUser = !showMenuUser" class="relative ml-[24px] w-[32px]">
                 <avatar-user :size="32" :image="user.image"></avatar-user>
                 <div v-if="showMenuUser" id="PopupMenu"
@@ -83,12 +85,14 @@ import { MENU } from '~/constant/menu/menu.constant';
 import { useUserStore } from '~/store/user';
 import { useUiStore } from '~/store/ui';
 import { logoutUserComposable } from '~/composables/logout/logout-user.composable';
+import { searchDataComposable } from '~/composables/search/search-data-composable';
 export default defineComponent({
   name: 'TopNavDesktop',
   components: { AvatarUser },
   setup() {
     const user = useUserStore()
     const ui = useUiStore()
+    const dataSearch = ref('');
     const upload = () => {
       navigateTo('/upload')
     }
@@ -100,8 +104,17 @@ export default defineComponent({
       ui.setMenuSelected(route)
       navigateTo(`${route}`)
     }
+    const search = async () => {
+      navigateTo({
+        path: '/search',
+        query: {
+          q: dataSearch.value
+        }
+      })
+      await searchDataComposable(dataSearch.value)
+    }
     const showMenuUser = ref(false)
-    return { user, ui, upload, logout, goTo, showMenuUser, MENU }
+    return { user, dataSearch, ui, showMenuUser, MENU, upload, logout, goTo, search }
   }
 })
 </script>

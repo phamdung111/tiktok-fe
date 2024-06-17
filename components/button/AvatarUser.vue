@@ -1,6 +1,6 @@
 <template>
-  <div @click="goTo()" class="w-full">
-    <img class="cursor-pointer rounded-full" :class="`w-[${size}px] h-[${size}px]`" :src="image" alt="">
+  <div @click="goTo()" :style="avatarStyle">
+    <img class="cursor-pointer rounded-full" :src="image" alt="">
   </div>
 </template>
 
@@ -27,7 +27,16 @@ export default defineComponent({
     const goTo = () => {
       props.userId !== 0 ? navigateTo(`/profile/${props.userId}`) : ''
     }
-    return { goTo }
+    const avatarStyle = computed(() => {
+      if (props.size) {
+        return {
+          width: `${props.size}px`,
+          height: `${props.size}px`,
+        };
+      }
+      return {};
+    });
+    return { goTo, avatarStyle }
   }
 })
 </script>

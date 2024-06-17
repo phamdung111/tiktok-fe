@@ -13,7 +13,6 @@
           <span @click="ui.closeNotificationDeleteData()" class="text-center w-full opacity-35">Cancel</span>
         </div>
       </div>
-
     </div>
   </div>
 </template>
