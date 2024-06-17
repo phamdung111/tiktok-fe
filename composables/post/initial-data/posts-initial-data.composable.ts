@@ -3,5 +3,5 @@ import { usePostStore } from "~/store/post";
 export const postsInitialDataComposable = async (offset: number) => {
   const post = usePostStore();
   const response = await postService.posts(offset);
-  post.posts(response);
+  post.setPosts(response);
 };

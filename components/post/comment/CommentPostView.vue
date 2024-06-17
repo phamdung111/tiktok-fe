@@ -19,7 +19,7 @@
       </div>
     </div>
     <div v-if="isReply" class="flex items-center w-full mt-1 gap-2 mb-3 pl-[52px]">
-      <input v-model="textReply"
+      <input v-model="textReply" @keyup.enter="summitReply()"
         class="py-[11px] w-full focus:outline-none focus:border-text-color-primary2 focus:ring-[1px] bg-bg-primary rounded-md cursor-pointer"
         placeholder="Add answer..." type="text">
       <button :disabled="!textReply" @click="summitReply()"
@@ -74,6 +74,7 @@ export default defineComponent({
       form.text = textReply.value
       await userReplyCommentSubmitComposable()
       isReply.value = false
+      form.text = ''
     }
     const closeReply = () => {
       isReply.value = false

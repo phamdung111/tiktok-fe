@@ -9,7 +9,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { postsFollowingInitialDataComposable } from '~/composables/post/initial-data/posts-following-initial-data.composable';
-import { POST } from '~/constant/post/post.constant';
 import { infinityPosts } from '~/processor/infinity-scroll/infinity-posts.processor';
 import { usePostStore } from '~/store/post';
 export default defineComponent({

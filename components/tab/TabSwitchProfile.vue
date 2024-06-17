@@ -8,13 +8,13 @@
 
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
-import type { TabSwitchProfileInterface } from '~/interface/ui/tab-switch/tab-switch-profile.interface';
+import type { TabSwitchInterface } from '~/interface/ui/tab-switch/tab-switch.interface';
 
 export default defineComponent({
   name: 'TabSwitchProfile',
   props: {
     tab: {
-      type: Object as PropType<TabSwitchProfileInterface>,
+      type: Object as PropType<TabSwitchInterface>,
       default: null
     }
   },
