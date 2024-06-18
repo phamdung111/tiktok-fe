@@ -1,11 +1,14 @@
 <template>
   <div :class="directionVertical ? 'grid' : 'flex'" class="gap-3">
-    <like-button :likes="post.likes" :postId="post.id" :size="size"
-      :directionVertical="directionVertical"></like-button>
-    <comment-button :comments="post.comments" :postId="post.id" :size="size"
-      :directionVertical="directionVertical"></comment-button>
-    <favorite-button :favorites="post.favorites" :postId="post.id" :size="size"
-      :directionVertical="directionVertical"></favorite-button>
+    <like-button
+      :likes="post.likes" :post-id="post.id" :size="size"
+      :direction-vertical="directionVertical"/>
+    <comment-button
+      :comments="post.comments" :post-id="post.id" :size="size"
+      :direction-vertical="directionVertical"/>
+    <favorite-button
+      :favorites="post.favorites" :post-id="post.id" :size="size"
+      :direction-vertical="directionVertical"/>
   </div>
 </template>
 

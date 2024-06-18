@@ -1,7 +1,8 @@
 <template>
-  <div class=" absolute top-[calc(50%-1.5rem)] right-3">
-    <Icon v-if="preButton() > 0" @click="navigateTo(`/post/${preButton()}`)" size="40" color="white"
-      class="bg-gray-500 rounded-full hover:bg-gray-300" name="iconamoon:arrow-up-2-duotone" />
+  <div v-if="preButton() > 0">
+    <Icon
+      name="iconamoon:arrow-up-2-duotone" size="40" color="white" class="bg-gray-500 rounded-full hover:bg-gray-300"
+      @click="navigateTo(`/post/${preButton()}`)" />
   </div>
 </template>
 
@@ -17,7 +18,9 @@ export default defineComponent({
     }
   },
   setup() {
-    return { preButton }
+    return {
+      preButton
+    }
   }
 })
 </script>

@@ -7,20 +7,24 @@
       <div class="grid">
         <div class="grid gap-1">
           <p v-if="validation.name.isFailed" class="text-red-primary text-[12px]">{{ validation.name.message }}</p>
-          <input v-model="form.name" class="w-full h-[44px] px-3 bg-primary22-bg-primary" type="text"
+          <input
+            v-model="form.name" class="w-full h-[44px] px-3 bg-primary22-bg-primary" type="text"
             placeholder="Your name">
           <p v-if="validation.email.isFailed" class="text-red-primary text-[12px]">{{ validation.email.message }}</p>
-          <input v-model="form.email" class="w-full h-[44px] px-3 bg-primary22-bg-primary" type="email"
+          <input
+            v-model="form.email" class="w-full h-[44px] px-3 bg-primary22-bg-primary" type="email"
             placeholder="Email address">
           <p v-if="validation.password.isFailed" class="text-red-primary text-[12px]">{{ validation.password.message }}
           </p>
-          <input v-model="form.password" class="w-full h-[44px] px-3 bg-primary22-bg-primary" type="password"
+          <input
+            v-model="form.password" class="w-full h-[44px] px-3 bg-primary22-bg-primary" type="password"
             placeholder="Password">
           <p v-if="validation.confirmPassword.isFailed" class="text-red-primary text-[12px]">{{
             validation.confirmPassword.message }}</p>
-          <input v-model="form.password_confirmation" class="w-full h-[44px] px-3 bg-primary22-bg-primary"
+          <input
+            v-model="form.password_confirmation" class="w-full h-[44px] px-3 bg-primary22-bg-primary"
             type="password" placeholder="Confirm password">
-          <button @click="register()" class="w-full h-[44px] rounded-sm bg-red-primary mt-2">Register</button>
+          <button class="w-full h-[44px] rounded-sm bg-red-primary mt-2" @click="register()">Register</button>
         </div>
       </div>
     </div>
@@ -35,11 +39,14 @@ import { registerFormValidationData as validation } from '~/composables/register
 export default defineComponent({
   name: 'RegisterForm',
   setup() {
-
     const register = async () => {
       await registerFormSubmitterComposable()
     }
-    return { form, register, validation }
+    return {
+      form,
+      validation,
+      register
+    }
   }
 })
 </script>

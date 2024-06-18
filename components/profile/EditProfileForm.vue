@@ -4,17 +4,18 @@
       <div class="w-full px-3">
         <div class="flex justify-between items-end py-4 border-b">
           <h1 class="text-[24px]">Edit profile</h1>
-          <Icon @click="closePopup" class="opacity-50" size="30" name="mdi:close" />
+          <Icon class="opacity-50" size="30" name="mdi:close" @click="closePopup" />
         </div>
         <div class="flex border-b py-3">
           <div class="basis-1/4">Profile Photo</div>
           <div class="basis-3/4 flex justify-center">
             <label for="change-avatar" class="relative">
-              <input @change="updateAvatar" type="file" class="hidden" id="change-avatar">
+              <input id="change-avatar" type="file" class="hidden" @change="updateAvatar">
               <div class="w-[100px] h-[100px] ">
                 <img class="w-full h-full rounded-full" :src="user.image" alt="">
               </div>
-              <Icon class="absolute rounded-full border cursor-pointer bottom-2 right-0 bg-white border-gray-400 p-1"
+              <Icon
+                class="absolute rounded-full border cursor-pointer bottom-2 right-0 bg-white border-gray-400 p-1"
                 size="30" color="gray" name="solar:pen-2-linear" />
             </label>
           </div>
@@ -22,7 +23,8 @@
         <div class="flex items-start border-b py-3">
           <h2 class="basis-1/4">Name</h2>
           <div class="basis-3/4">
-            <input v-model="form.name"
+            <input
+              v-model="form.name"
               class="h-[38px] px-[12px] py-[7px] w-full rounded-sm bg-red-primary-2 placeholder-gray-700 focus:outline-none focus:visible"
               type="text">
             <span class="text-[12px] text-gray-500">You can only change your nickname every 7 days.</span>
@@ -31,29 +33,33 @@
         <div class="flex items-start border-b py-3">
           <h2 class="basis-1/4">Story</h2>
           <div class="basis-3/4">
-            <textarea v-model="form.bio" maxlength="80"
+            <textarea
+              v-model="form.bio" maxlength="80"
               class="h-[100px] px-[12px] py-[7px] w-full focus:outline-none rounded-sm bg-red-primary-2 placeholder-gray-500"
-              type="text"></textarea>
+              type="text"/>
             <span class="text-[12px] text-gray-500">{{ form.bio?.length }}/80</span>
           </div>
         </div>
       </div>
       <div class="h-[86px] flex justify-end items-center gap-5 px-8">
-        <button @click="closePopup" class="h-[36px] px-4 border border-red-primary-2">Cancel</button>
-        <button class="h-[36px] px-4 border border-red-primary-2 " @click="isUpdateProfile ? updateUser() : ''"
-          :class="isUpdateProfile ? 'bg-red-primary text-white' : 'cursor-not-allowed text-gray-400'">Save</button>
+        <button class="h-[36px] px-4 border border-red-primary-2" @click="closePopup">Cancel</button>
+        <button
+          class="h-[36px] px-4 border border-red-primary-2 " :class="isUpdateProfile ? 'bg-red-primary text-white' : 'cursor-not-allowed text-gray-400'"
+          @click="isUpdateProfile ? updateUser() : ''">Save</button>
       </div>
     </div>
     <div v-else class="aspect-square w-[500px] lg:w-[700px] xl:w-[1000px]">
       <div class="w-full h-full">
-        <cropper class="cropper" ref="cropper" :stencil-component="CircleStencil" :src="cropperImageLink" />
+        <cropper ref="cropper" class="cropper" :stencil-component="CircleStencil" :src="cropperImageLink" />
       </div>
       <dir class="w-full p-0 m-0">
         <div class="w-full h-[86px] flex justify-end items-center gap-5 px-8 bg-white">
-          <button @click="uploadedImage = false"
-            class="h-[36px] px-4 border border-red-primary-2 hover:bg-gray-100">Cancel</button>
-          <button @click="applyNewAvatar()"
-            class="h-[36px] px-4 border border-red-primary-2 bg-red-primary text-white rounded-sm">Apply</button>
+          <button
+            class="h-[36px] px-4 border border-red-primary-2 hover:bg-gray-100"
+            @click="uploadedImage = false">Cancel</button>
+          <button
+            class="h-[36px] px-4 border border-red-primary-2 bg-red-primary text-white rounded-sm"
+            @click="applyNewAvatar()">Apply</button>
         </div>
       </dir>
     </div>
@@ -78,7 +84,6 @@ export default defineComponent({
   setup() {
     const user = useUserStore()
     const ui = useUiStore()
-    const route = useRoute()
     const newAvatar = ref(null)
     const isUpdateProfile = ref(false)
     const cropperImageLink = ref('')
@@ -94,7 +99,7 @@ export default defineComponent({
     }
     const applyNewAvatar = async () => {
       const { coordinates } = cropper.value.getResult()
-      let data = new FormData()
+      const data = new FormData()
       data.append('image', newAvatar.value || '')
       data.append('height', coordinates.height || '')
       data.append('width', coordinates.width || '')

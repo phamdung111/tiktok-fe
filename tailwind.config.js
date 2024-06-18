@@ -16,6 +16,7 @@ export default {
         "bg-primary": "rgba(22, 24, 35, 0.03)",
         "bg-primary2": "rgba(22, 24, 35, 0.06)",
         "bg-primary3": "rgba(250,206,21,255)",
+        "bg-primary4": "rgba(84, 84, 84, 0.5)",
       },
       width: {
         "width-nav-menu-tablet": "55px",

@@ -1,12 +1,12 @@
 <template>
   <div class="w-full aspect-2/3">
-    <video :src="videoUrl" muted loop @mouseenter="playVideo()" @mouseleave="pauseVideo()" ref="videoRef"
-      @click="navigateTo(`/post/${id}`)" class="w-full h-full object-cover rounded-md"></video>
+    <video
+    ref="videoRef" :src="videoUrl" muted loop class="w-full h-full object-cover rounded-md" @mouseenter="playVideo()"
+      @mouseleave="pauseVideo()" @click="navigateTo(`/post/${id}`)"/>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType } from 'vue'
 
 export default defineComponent({
   name: 'VideoBase',

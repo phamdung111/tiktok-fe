@@ -18,6 +18,7 @@
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
 import { useUserStore } from '~/store/user';
+
 export default defineComponent({
   name: 'InteractUser',
   props: {

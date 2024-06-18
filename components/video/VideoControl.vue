@@ -1,37 +1,44 @@
 <template>
-  <div class="group h-full">
-    <div class="relative flex justify-center h-full ">
-      <video ref="videoRef" muted loop preload="auto" @click="!perPost ? navigateTo(`/post/${post.id}`) : playPause()"
-        class="object-cover h-full w-full lg:py-2 lg:w-auto lg:rounded-2xl overflow-hidden"
-        :class="perPost ? 'xl:aspect-2/3 h-full w-auto lg:py-0' : ''" :src="post.video">
-      </video>
-      <div class="absolute w-full bottom-0 left-0 text-white z-controlVideo pb-3">
-        <div v-if="!perPost" class="grid gap-3 pl-3">
-          <h4 class="cursor-pointer hover:underline " @click="navigateTo(`/profile/${post.user[0].id}`)">{{
-            post.user[0].name }}</h4>
-          <h4>{{ post.text }}</h4>
-          <Icon name="ph:music-notes-simple-fill"></Icon>
-        </div>
-        <div class="flex justify-start items-center gap-2 px-2" :class="perPost ? 'w-full' : ''">
-          <Icon @click="playPause()" :name="isPlaying ? 'ic:sharp-pause' : 'material-symbols:play-arrow-rounded'"
-            size="40"></Icon>
-          <div class="w-full">
-            <input class="w-full h-[2px] flex items-center hover:cursor-pointer" type="range" min="0" :max="totalTime"
-              v-model="currentTime" @input="handleTimeUpdate" />
+  <div class="h-full">
+    <div class="flex justify-center h-full ">
+      <div class="relative">
+        <video
+          ref="videoRef" muted loop preload="auto"
+          class="object-cover h-full lg:w-auto lg:rounded-2xl overflow-hidden relative" :src="post.video"
+          @click="!perPost ? navigateTo(`/post/${post.id}`) : playPause()" />
+        <div class="absolute w-full bottom-0 left-0 text-white z-controlVideo pb-3">
+          <div v-if="!perPost" class="grid gap-3 pl-3">
+            <h4 class="cursor-pointer hover:underline " @click="navigateTo(`/profile/${post.user[0].id}`)">{{
+              post.user[0].name }}</h4>
+            <h4>{{ post.text }}</h4>
+            <Icon name="ph:music-notes-simple-fill" />
           </div>
-          <div class="relative">
-            <div v-if="!isMuted">
-              <Icon @click="toggleMutedVideo()" class="hover:cursor-pointer"
-                name="streamline:entertainment-volume-level-high-speaker-high-volume-control-audio-music" size="30">
-              </Icon>
+          <div class="flex justify-start items-center gap-2 px-2" :class="perPost ? 'w-full' : ''">
+            <Icon
+              :name="isPlaying ? 'ic:sharp-pause' : 'material-symbols:play-arrow-rounded'" size="40"
+              @click="playPause()" />
+            <div class="w-full">
+              <input
+                v-model="currentTime" class="w-full h-[2px] flex items-center hover:cursor-pointer" type="range"
+                min="0" :max="totalTime" @input="handleTimeUpdate">
             </div>
-            <div v-else>
-              <Icon @click="toggleMutedVideo()" class="hover:cursor-pointer" name="fluent:speaker-mute-24-filled"
-                size="30"></Icon>
+            <div class="relative">
+              <div v-if="!isMuted">
+                <Icon
+                  class="hover:cursor-pointer"
+                  name="streamline:entertainment-volume-level-high-speaker-high-volume-control-audio-music" size="30"
+                  @click="toggleMutedVideo()" />
+              </div>
+              <div v-else>
+                <Icon
+                  class="hover:cursor-pointer" name="fluent:speaker-mute-24-filled" size="30"
+                  @click="toggleMutedVideo()" />
+              </div>
+              <input
+                v-model="volumeLevel"
+                class="absolute w-[70px] h-[4px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[70px] -rotate-90 hover:cursor-pointer"
+                type="range" min="0" max="1" step="0.1" @input="handleVolume()">
             </div>
-            <input
-              class="absolute w-[70px] h-[4px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[70px] -rotate-90 hover:cursor-pointer"
-              type="range" min="0" max="1" step="0.1" v-model="volumeLevel" @input="handleVolume()" />
           </div>
         </div>
       </div>
@@ -48,7 +55,7 @@ export default defineComponent({
   props: {
     post: {
       type: Object as PropType<PostResponseInterface>,
-      default: ''
+      default: null
     },
     perPost: {
       type: Boolean,
@@ -144,7 +151,7 @@ export default defineComponent({
       }
       const autoPlayVideo = () => {
         if (videoRef.value && !props.perPost) {
-          let promiseVideo = videoRef.value.play()
+          const promiseVideo = videoRef.value.play()
           if (promiseVideo !== undefined) {
             promiseVideo.then((_ => {
               const observer = new IntersectionObserver((entries) => {
@@ -186,7 +193,7 @@ export default defineComponent({
     })
     watch(() => isPlaying.value, () => {
       if (isPlaying.value === true) {
-        let interval = setInterval(function () {
+        const interval = setInterval(function () {
           currentTime.value++
           if (currentTime.value >= totalTime.value) {
             currentTime.value = 0

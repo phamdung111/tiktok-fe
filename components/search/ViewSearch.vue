@@ -1,7 +1,7 @@
 <template>
   <div class="p-4 lg:flex justify-center">
     <div class="pt-2 border-b h-[42px] lg:w-[800px] text-text-color-primary2 px-2 font-medium">
-      <tab-switch :tabs="tabs" :tab-default="tabDefault" @tab-selected="tabSelected"></tab-switch>
+      <tab-switch :tabs="tabs" :tab-default="tabDefault" @tab-selected="tabSelected"/>
     </div>
   </div>
 </template>
@@ -9,7 +9,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import TabSwitch from '../tab/TabSwitch.vue';
-import NotFoundBase from '../not-found/NotFoundBase.vue';
 import PostSearch from './post/PostSearch.vue';
 import AccountSearch from './account/AccountSearch.vue';
 import { searchDataComposable } from '~/composables/search/search-data-composable';
@@ -18,9 +17,6 @@ export default defineComponent({
   name: 'ViewSearch',
   components: {
     TabSwitch,
-    PostSearch,
-    NotFoundBase,
-    AccountSearch
   },
   setup() {
     const route = useRoute()
@@ -37,7 +33,7 @@ export default defineComponent({
       component: AccountSearch
     }]
     const tabSelected = (tabSelected: TabSwitchInterface) => {
-      let tabIndex = tabs.findIndex(tab => tab.value === tabSelected.value)
+      const tabIndex = tabs.findIndex(tab => tab.value === tabSelected.value)
       currentTab.value = tabIndex
       tabDefault.value = tabIndex
     }

@@ -2,8 +2,9 @@
   <div class="absolute right-1">
     <div v-if="userOwn === user.id" class="relative" @mouseenter="show = true" @mouseleave="show = false">
       <Icon name="ph:dots-three" size="24" />
-      <div v-if="show" @click="deleteData"
-        class="flex items-center gap-1 absolute bg-white border px-4 py-2 rounded-sm hover:text-red-primary right-0">
+      <div
+        v-if="show" class="flex items-center gap-1 absolute bg-white border px-4 py-2 rounded-sm hover:text-red-primary right-0"
+        @click="deleteData">
         <Icon name="material-symbols:delete-outline" />
         <button>Delete</button>
       </div>
@@ -16,7 +17,6 @@
 import { defineComponent } from 'vue'
 import { useUserStore } from '~/store/user';
 import { useUiStore } from '~/store/ui';
-import type { NotificationDeleteDataInterface } from '../../interface/ui/notification/notification-delete-data.interface';
 export default defineComponent({
   name: "DeleteDta",
   props: {
@@ -44,7 +44,11 @@ export default defineComponent({
       }
       ui.openNotificationDeleteData(data)
     }
-    return { user, show, deleteData }
+    return {
+      user,
+      show,
+      deleteData
+    }
   }
 })
 </script>

@@ -1,8 +1,10 @@
 <template>
-  <div @click="isLike ? unLikePost() : likePost()"
-    :class="directionVertical ? 'grid justify-center' : 'flex items-center gap-2'" class="cursor-pointer text-white">
+  <div
+    :class="directionVertical ? 'grid justify-center' : 'flex items-center gap-2'"
+    class="cursor-pointer text-white" @click="isLike ? unLikePost() : likePost()">
     <div class="text-text-color-primary">
-      <div :class="isLike ? 'text-red-primary' : 'text-black'"
+      <div
+        :class="isLike ? 'text-red-primary' : 'text-black'"
         class="flex justify-center items-center bg-bg-primary2 w-[40px] h-[40px] rounded-full">
         <Icon name="mdi:heart" :size="size.toString()" />
       </div>
@@ -26,7 +28,7 @@ export default defineComponent({
   props: {
     likes: {
       type: Array as PropType<PostLikeResponseInterface[]>,
-      default: []
+      default: null
     },
     postId: {
       type: Number,
@@ -49,7 +51,7 @@ export default defineComponent({
     const likePost = async () => {
       const response = await userLikePostComposable(props.postId)
       if (response.status === 200) {
-        props.likes?.unshift({ 'userId': user.id })
+        props.likes!.unshift({ 'userId': user.id })
       }
 
     }
@@ -57,10 +59,14 @@ export default defineComponent({
       const response = await userUnlikeComposable(props.postId)
       if (response.status === 200) {
         const index = props.likes.findIndex(like => like.userId === user.id)
-        index >= 0 ? props.likes.splice(index, 1) : ''
+        index >= 0 ? props.likes!.splice(index, 1) : ''
       }
     }
-    return { likePost, unLikePost, isLike }
+    return {
+      isLike,
+      likePost,
+      unLikePost
+    }
   }
 })
 </script>

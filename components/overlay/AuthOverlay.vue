@@ -3,8 +3,8 @@
     <div class="fixed left-0 top-0 w-screen h-screen bg-color-wrap flex justify-center items-center">
       <div class="h-[644px] w-[483px] bg-white rounded-md relative">
 
-        <login-form v-if="!isRegister"></login-form>
-        <register-form v-else></register-form>
+        <login-form v-if="!isRegister"/>
+        <register-form v-else/>
         <div class="absolute bottom-0 w-full grid justify-center">
           <div id="policy-confirm-account-login" class="py-[16px] px-[30px] flex justify-center border-b">
             <p class="w-[337px] text-[12px] text-color-blur text-center">
@@ -16,13 +16,15 @@
           </div>
           <div v-if="!isRegister" class="flex justify-center items-center h-[64px] gap-1.5">
             <div>Don't have an account?</div>
-            <div @click="isRegister = true"
-              class="text-[15px] leading-6 text-red-primary font-semibold hover:underline">Register</div>
+            <div
+              class="text-[15px] leading-6 text-red-primary font-semibold hover:underline"
+              @click="isRegister = true">Register</div>
           </div>
           <div v-else class="flex justify-center items-center h-[64px] gap-1.5">
             <div>You have an account?</div>
-            <div @click="isRegister = false"
-              class="text-[15px] leading-6 text-red-primary font-semibold hover:underline">Login</div>
+            <div
+              class="text-[15px] leading-6 text-red-primary font-semibold hover:underline"
+              @click="isRegister = false">Login</div>
           </div>
         </div>
       </div>
@@ -34,7 +36,6 @@
 import { defineComponent } from 'vue'
 import { useUiStore } from '~/store/ui';
 import LoginForm from '../form/LoginForm.vue';
-import { useUserStore } from '~/store/user';
 import RegisterForm from '../form/RegisterForm.vue';
 export default defineComponent({
   name: 'AuthOverlay',
@@ -44,10 +45,11 @@ export default defineComponent({
   },
   setup() {
     const ui = useUiStore()
-    const user = useUserStore()
     const isRegister = ref(false)
-
-    return { ui, isRegister }
+    return { 
+      ui,
+      isRegister
+    }
   }
 })
 </script>
