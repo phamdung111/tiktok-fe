@@ -1,5 +1,6 @@
 <template>
-  <div v-if="ui.notificationDeleteData?.length"
+  <div
+    v-if="ui.notificationDeleteData?.length"
     class="fixed top-0 right-0 z-notification flex justify-center items-center w-full h-full bg-black bg-opacity-50">
     <div class="rounded-lg bg-white w-[310px]">
       <div class="px-[24px] py-[28px] text-[24px] font-bold text-center">
@@ -7,10 +8,10 @@
       </div>
       <div>
         <div class="flex items-center h-[48px] text-center font-normal border-t">
-          <span @click="confirmDeleteData()" class="text-center w-full">Erase</span>
+          <span class="text-center w-full" @click="confirmDeleteData()">Erase</span>
         </div>
         <div class="flex items-center h-[48px] text-center font-normal border-t ">
-          <span @click="ui.closeNotificationDeleteData()" class="text-center w-full opacity-35">Cancel</span>
+          <span class="text-center w-full opacity-35" @click="ui.closeNotificationDeleteData()">Cancel</span>
         </div>
       </div>
     </div>
@@ -29,7 +30,10 @@ export default defineComponent({
     const confirmDeleteData = () => {
       deleteDataProcessor(ui.notificationDeleteData![0].itemDelete, ui.notificationDeleteData![0].idItemDelete)
     }
-    return { ui, confirmDeleteData }
+    return {
+      ui,
+      confirmDeleteData
+    }
   }
 })
 </script>

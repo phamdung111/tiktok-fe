@@ -3,7 +3,7 @@
     <top-nav />
     <div class="h-[calc(100vh-55px)] mt-height-top-nav lg:flex justify-between">
       <main-menu />
-      <div class="w-full md:ml-width-nav-menu-tablet lg:ml-width-nav-menu-laptop">
+      <div class="w-full h-full md:ml-width-nav-menu-tablet lg:ml-width-nav-menu-laptop">
         <slot />
       </div>
     </div>

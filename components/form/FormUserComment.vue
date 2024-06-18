@@ -5,12 +5,14 @@
         <avatar-user v-if="user.id" :image="user.image" :size="48" :user-id="user.id" />
       </div>
       <div class="flex ml-2 w-full gap-2">
-        <input v-model="form.text" @keyup.enter="submitComment()"
+        <input
+          v-model="form.text"
           class="overflow-hidden py-[11px] w-full focus:outline-none focus:border-text-color-primary2 focus:ring-[1px] bg-bg-primary rounded-md cursor-pointer"
-          placeholder="Add comment..." type="text">
-        <button @click="submitComment()" :disabled="!isComment"
+          placeholder="Add comment..." type="text" @keyup.enter="submitComment()">
+        <button
+          :disabled="!isComment"
           :class="!isComment ? 'opacity-60 border border-text-color-primary2' : 'bg-red-primary text-white'"
-          class="px-5 py-2 rounded-sm font-medium">Post</button>
+          class="px-5 py-2 rounded-sm font-medium" @click="submitComment()">Post</button>
       </div>
     </div>
   </div>
@@ -55,7 +57,12 @@ export default defineComponent({
     watch(() => form.text, () => {
       form.text.length > 0 ? isComment.value = true : isComment.value = false
     })
-    return { submitComment, form, isComment, user }
+    return {
+      form,
+      isComment,
+      user,
+      submitComment
+    }
   }
 })
 </script>

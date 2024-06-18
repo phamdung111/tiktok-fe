@@ -4,25 +4,29 @@
       <h2 class="text-[33px] font-bold text-center mb-[16px]">Log in to TikTok</h2>
     </div>
     <div class="grid">
-      <div @keyup.enter="login()" class="grid gap-2">
+      <div class="grid gap-2" @keyup.enter="login()">
         <error-message :is-display="validation.email.isFailed" :message="validation.email.message" />
-        <input v-model="form.email" class="w-full h-[44px] px-3 bg-primary22-bg-primary" type="email"
+        <input
+          v-model="form.email" class="w-full h-[44px] px-3 bg-primary22-bg-primary" type="email"
           placeholder="Email address">
         <error-message :is-display="validation.password.isFailed" :message="validation.password.message" />
-        <input v-model="form.password" class="w-full h-[44px] px-3 bg-primary22-bg-primary" type="password"
+        <input
+          v-model="form.password" class="w-full h-[44px] px-3 bg-primary22-bg-primary" type="password"
           placeholder="Password">
-        <button @click="login()"
-          class="w-full h-[44px] rounded-sm bg-red-primary text-white font-semibold">Login</button>
+        <button
+          class="w-full h-[44px] rounded-sm bg-red-primary text-white font-semibold"
+          @click="login()">Login</button>
       </div>
     </div>
     <div class="flex justify-center items-center py-[22px] px-[13px]">
-      <div class="w-full h-[1px] bg-slate-200"></div>
+      <div class="w-full h-[1px] bg-slate-200"/>
       <div class="mx-[15px]">OR</div>
-      <div class="w-full h-[1px] bg-slate-200"></div>
+      <div class="w-full h-[1px] bg-slate-200"/>
     </div>
 
-    <div @click="ui.isOpenOverlay = false" id="visit-without-login"
-      class="flex justify-center items-center bg-red-primary text-[15px] h-[44px] rounded-[8px]">
+    <div
+      id="visit-without-login" class="flex justify-center items-center bg-red-primary text-[15px] h-[44px] rounded-[8px]"
+      @click="ui.isOpenOverlay = false">
       <div class="w-[calc(100%-64px)] text-center text-white font-semibold">
         Continue as a guest
       </div>
@@ -45,7 +49,12 @@ export default defineComponent({
     const login = async () => {
       await loginFormSubmitterComposable()
     }
-    return { form, login, ui, validation }
+    return {
+      form,
+      ui,
+      validation,
+      login,
+    }
   }
 })
 </script>

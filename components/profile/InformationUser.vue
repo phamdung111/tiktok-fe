@@ -1,5 +1,4 @@
 <template>
-
   <div id="info" class="flex justify-start">
     <div class="w-[116px] h-[116px] object-cover">
       <img class="rounded-full shadow-md w-full h-full" width="116" height="116" :src="information.image" alt="">
@@ -7,21 +6,22 @@
     <div class="grid items-center ml-5">
       <h2 class="text-[32px] mb-1 font-bold">{{ information.name }}</h2>
       <h2 class="text-[18px] font-medium pb-2">{{ information.name }}</h2>
-      <button v-if="isMyProfile" @click="openEditProfileForm"
-        class="flex items-center gap-2 px-2 min-h-[36px] border cursor-pointer hover:bg-gray-100">
+      <button
+        v-if="isMyProfile" class="flex items-center gap-2 px-2 min-h-[36px] border cursor-pointer hover:bg-gray-100"
+        @click="openEditProfileForm">
         <Icon
           name="streamline:interface-user-edit-actions-close-edit-geometric-human-pencil-person-single-up-user-write" />
         Edit profile
       </button>
-      <follow-button v-else :idUserCreator="information.id"></follow-button>
+      <follow-button v-else :id-user-creator="information.id"/>
     </div>
   </div>
-  <interact-user :information="information"></interact-user>
+  <interact-user :information="information"/>
   <div class="pt-2">
     <h2 class="opacity-75 font-normal">{{ information.bio ? information.bio : 'No biography yet.' }}</h2>
   </div>
   <div class="mt-6">
-    <tab-switch :tabs="tabs" :tab-default="tabDefault" @tab-selected="tabSelected"></tab-switch>
+    <tab-switch :tabs="tabs" :tab-default="tabDefault" @tab-selected="tabSelected"/>
   </div>
 
 </template>
@@ -41,16 +41,12 @@ import type { TabSwitchInterface } from '~/interface/ui/tab-switch/tab-switch.in
 import type { PeopleResponseInterface } from '~/interface/response/people/people-response.inteface';
 import type { UserStoreStateInterface } from '~/interface/store/user/user-store-state.interface';
 export default defineComponent({
+  name: 'InformationUser',
   components: {
-    ProfileVideo,
     InteractUser,
-    EditProfileForm,
     TabSwitch,
-    ProfileFavorite,
-    ProfileLiked,
     FollowButton
   },
-  name: 'InformationUser',
   props: {
     information: {
       type: Object as PropType<PeopleResponseInterface | UserStoreStateInterface>,
@@ -88,7 +84,7 @@ export default defineComponent({
       ui.openPopup(EditProfileForm)
     }
     const tabSelected = (tabSelected: TabSwitchInterface) => {
-      let tabIndex = tabs.findIndex(tab => tab.value === tabSelected.value)
+      const tabIndex = tabs.findIndex(tab => tab.value === tabSelected.value)
       currentTab.value = tabIndex
       tabDefault.value = tabIndex
       console.log(currentTab.value);

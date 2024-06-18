@@ -1,15 +1,18 @@
 <template>
-  <div v-if="user.id != idUserCreator" @click="isFollow ? unFollowCreator() : followCreator()"
-    class="hover:cursor-pointer">
-    <div v-if="!miniSize"
+  <div
+    v-if="user.id != idUserCreator" class="hover:cursor-pointer"
+    @click="isFollow ? unFollowCreator() : followCreator()">
+    <div
+      v-if="!miniSize"
       :class="isFollow ? 'border border-gray-300' : 'text-white bg-red-primary border border-red-primary'"
       class=" font-bold px-5 py-2 rounded-sm hover:opacity-90 max-w-[100px] my-2">
       {{ isFollow ? 'Following' : 'Follow' }}
     </div>
-    <div v-else
+    <div
+      v-else
       class="w-[22px] h-[22px] absolute -bottom-2 right-1/4 bg-red-primary rounded-full flex justify-end items-center">
-      <Icon v-if="!isFollow" name="mdi:plus" size="20" color="white"></Icon>
-      <Icon v-else name="ion:checkmark" size="20" color="white"></Icon>
+      <Icon v-if="!isFollow" name="mdi:plus" size="20" color="white"/>
+      <Icon v-else name="ion:checkmark" size="20" color="white"/>
 
     </div>
   </div>
@@ -46,7 +49,12 @@ export default defineComponent({
 
       return index >= 0 ? true : false
     })
-    return { followCreator, unFollowCreator, isFollow, user }
+    return {
+      followCreator,
+      unFollowCreator,
+      isFollow,
+      user
+    }
   }
 })
 </script>

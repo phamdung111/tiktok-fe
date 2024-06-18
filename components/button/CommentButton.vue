@@ -1,6 +1,7 @@
 <template>
-  <div @click="navigateTo(`/post/${postId}`)"
-    :class="directionVertical ? 'grid justify-center' : 'flex items-center gap-2'" class="cursor-pointer text-white">
+  <div
+    :class="directionVertical ? 'grid justify-center' : 'flex items-center gap-2'"
+    class="cursor-pointer text-white" @click="navigateTo(`/post/${postId}`)">
     <div class="text-text-color-primary">
       <div class="flex justify-center items-center bg-bg-primary2 w-[40px] h-[40px] rounded-full">
         <Icon name="ph:chat-circle-dots-light" :size="size.toString()" />
@@ -23,7 +24,7 @@ export default defineComponent({
   props: {
     comments: {
       type: Array as PropType<CommentInterface[]>,
-      default: []
+      default: null
     },
     postId: {
       type: Number,

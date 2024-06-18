@@ -1,6 +1,6 @@
 <template>
   <div class="z-menu">
-    <menu-mobile></menu-mobile>
+    <menu-mobile/>
     <div
       class="hidden md:block fixed top-height-top-nav w-width-nav-menu-tablet h-full border-r lg:w-width-nav-menu-laptop border-r-gray-300 bg-white">
       <div class="w-full relative">
@@ -21,15 +21,14 @@
               <template #text>{{ MENU.MAIN.FOLLOWING.text }}</template>
             </main-menu-link>
           </div>
-          <div :class="ui.menuSelected === MENU.MAIN.FRIEND.link ? 'text-red-primary' : ''">
+          <!-- <div :class="ui.menuSelected === MENU.MAIN.FRIEND.link ? 'text-red-primary' : ''">
             <main-menu-link @click="goTo(MENU.MAIN.FRIEND.link)">
               <template #icon>
                 <Icon :name="MENU.MAIN.FRIEND.icon" size="30" />
               </template>
               <template #text>{{ MENU.MAIN.FRIEND.text }}</template>
             </main-menu-link>
-
-          </div>
+          </div> -->
           <div :class="ui.menuSelected === `${MENU.MAIN.PROFILE.link}/${user.id}` ? 'text-red-primary' : ''">
             <main-menu-link @click="user.id ? goTo(`${MENU.MAIN.PROFILE.link}/${user.id}`) : showLogin()">
               <template #icon>
@@ -68,7 +67,14 @@ export default defineComponent({
     const upload = () => {
       navigateTo('/upload')
     }
-    return { MENU, goTo, ui, user, upload, showLogin, }
+    return {
+      MENU,
+      ui,
+      user,
+      upload,
+      showLogin,
+      goTo,
+    }
   }
 })
 </script>

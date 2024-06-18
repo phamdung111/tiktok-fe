@@ -1,5 +1,5 @@
 <template>
-  <div @click="goTo()" :style="avatarStyle">
+  <div :style="avatarStyle" @click="goTo()">
     <img class="cursor-pointer rounded-full" :src="image" alt="">
   </div>
 </template>
@@ -36,7 +36,10 @@ export default defineComponent({
       }
       return {};
     });
-    return { goTo, avatarStyle }
+    return {
+      avatarStyle,
+      goTo
+    }
   }
 })
 </script>

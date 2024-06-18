@@ -1,7 +1,8 @@
 <template>
   <div v-if="search.users.length">
-    <div v-for="user in search.users" :key="user.id" @click="navigateTo(`/profile/${user.id}`)"
-      class="flex items-center hover:bg-bg-primary rounded-lg">
+    <div
+      v-for="user in search.users" :key="user.id" class="flex items-center hover:bg-bg-primary rounded-lg"
+      @click="navigateTo(`/profile/${user.id}`)">
       <div class="m-4">
         <avatar-user :image="user.image" :size="60" :user-id="user.id" />
       </div>

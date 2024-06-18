@@ -1,11 +1,13 @@
 <template>
-  <div @click="showPostProfile()" class="h-full relative">
+  <div class="h-full relative" @click="showPostProfile()">
     <div class="absolute flex items-center text-white bottom-3 font-bold">
       <!-- <Icon size="30" name="material-symbols-light:play-arrow-outline" /> -->
       <!-- <span>8.3M</span> -->
     </div>
-    <video class="h-full object-cover rounded-sm" @mouseenter="play" @mouseleave="pause" loop muted
-      :src="post.video"></video>
+    <video
+      ref="videoRef"
+      class="h-full object-cover rounded-sm" loop muted :src="post.video" @mouseenter="play"
+      @mouseleave="pause"/>
   </div>
 </template>
 
@@ -23,17 +25,23 @@ export default defineComponent({
   },
   setup(props) {
     const people = usePeopleStore()
-    const play = (e: any) => {
-      e.target.play()
+    const videoRef = ref<HTMLVideoElement | null>(null)
+    const play = () => {
+      videoRef.value?.play()
     }
-    const pause = (e: any) => {
-      e.target.pause()
+    const pause = () => {
+      videoRef.value?.pause()
     }
     const showPostProfile = () => {
       people.isWatching = true
       navigateTo(`/post/${props.post.id}`)
     }
-    return { play, pause, people, showPostProfile }
+    return { 
+      videoRef,
+      people,
+      play,
+      pause,
+      showPostProfile }
   }
 })
 </script>

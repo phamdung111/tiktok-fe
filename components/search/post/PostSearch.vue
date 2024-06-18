@@ -2,7 +2,7 @@
   <div v-if="search.posts.length" class="grid grid-cols-2 lg:grid-cols-3 gap-3">
     <div v-for="post in search.posts" :key="post.id" class="w-full">
       <div class="relative">
-        <video-base :video-url="post.video" :id="post.id" />
+        <video-base :id="post.id" :video-url="post.video" />
         <h5 class="absolute bottom-2 left-2 font-medium text-white">{{ formatDateTimeProvider(new Date(post.created_at))
           }}
         </h5>
@@ -10,7 +10,7 @@
       <div class="px-2 pt-1 py-4 font-normal text-text-color-primary text-[16px]">
         <h4>{{ post.text }}</h4>
         <div class="flex gap-1 items-center">
-          <avatar-user :image="post.user[0].image" :size="30" :user-id="post.user[0].id"></avatar-user>
+          <avatar-user :image="post.user[0].image" :size="30" :user-id="post.user[0].id"/>
           <h4>{{ post.user[0].name }}</h4>
         </div>
       </div>
@@ -22,7 +22,6 @@
 </template>
 
 <script lang="ts">
-import VideoControl from '~/components/video/VideoControl.vue';
 import AvatarUser from '~/components/button/AvatarUser.vue';
 import NotFoundBase from '~/components/not-found/NotFoundBase.vue';
 import VideoBase from '~/components/video/VideoBase.vue';
@@ -31,7 +30,6 @@ import { formatDateTimeProvider } from '~/provider/format/date-time/format-date-
 export default defineComponent({
   name: 'PostSearch',
   components: {
-    VideoControl,
     AvatarUser,
     NotFoundBase,
     VideoBase

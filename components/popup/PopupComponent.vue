@@ -2,7 +2,7 @@
   <transition name="zoomIn">
     <div v-if="isDisplayPopup">
       <div @click.self="closePopup">
-        <component :is="componentPopup"></component>
+        <component :is="componentPopup"/>
       </div>
     </div>
   </transition>
@@ -21,7 +21,11 @@ export default defineComponent({
     const closePopup = () => {
       ui.closePopup()
     }
-    return { componentPopup, isDisplayPopup, closePopup }
+    return {
+      componentPopup,
+      isDisplayPopup,
+      closePopup
+    }
   }
 })
 </script>

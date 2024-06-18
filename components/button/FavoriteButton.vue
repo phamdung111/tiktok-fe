@@ -1,8 +1,10 @@
 <template>
-  <div @click="isFavorite ? unFavorite() : favorite()"
-    :class="directionVertical ? 'grid justify-center' : 'flex items-center gap-2'" class="cursor-pointer text-white">
+  <div
+    :class="directionVertical ? 'grid justify-center' : 'flex items-center gap-2'"
+    class="cursor-pointer text-white" @click="isFavorite ? unFavorite() : favorite()">
     <div class="text-text-color-primary">
-      <div :class="isFavorite ? 'text-bg-primary3' : 'text-black'"
+      <div
+        :class="isFavorite ? 'text-bg-primary3' : 'text-black'"
         class="flex justify-center items-center bg-bg-primary2 w-[40px] h-[40px] rounded-full">
         <Icon name="material-symbols-light:bookmark-sharp" :size="size.toString()" />
       </div>
@@ -26,7 +28,7 @@ export default defineComponent({
   props: {
     favorites: {
       type: Array as PropType<PostFavoriteResponseInterface[]>,
-      default: []
+      default: null
     },
     postId: {
       type: Number,
@@ -46,14 +48,14 @@ export default defineComponent({
     const favorite = async () => {
       const response = await userFavoritePostComposable(props.postId)
       if (response.status === 200) {
-        props.favorites?.unshift({ 'userId': user.id })
+        props.favorites!.unshift({ 'userId': user.id })
       }
     }
     const unFavorite = async () => {
       const response = await userUnfavoritePostComposable(props.postId)
       if (response.status === 200) {
         const index = props.favorites!.findIndex(favorite => favorite.userId === user.id)
-        index >= 0 ? props.favorites?.splice(index, 1) : ''
+        index >= 0 ? props.favorites!.splice(index, 1) : ''
       }
     }
     const isFavorite = computed(() => {
@@ -61,7 +63,11 @@ export default defineComponent({
       return favorite ? true : false
 
     })
-    return { isFavorite, favorite, unFavorite }
+    return {
+      isFavorite,
+      favorite,
+      unFavorite
+    }
   }
 })
 </script>

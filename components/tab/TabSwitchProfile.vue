@@ -1,7 +1,8 @@
 <template>
-  <div @click="tabSwitch()"
-    class="flex gap-1 items-center text-[18px] px-[32px] h-[44px] hover:border-b-2  font-medium">
-    <Icon :name="tab.icon"></Icon>
+  <div
+    class="flex gap-1 items-center text-[18px] px-[32px] h-[44px] hover:border-b-2  font-medium"
+    @click="tabSwitch()">
+    <Icon :name="tab.icon"/>
     <button>{{ tab.value }}</button>
   </div>
 </template>
@@ -20,10 +21,10 @@ export default defineComponent({
   },
   setup() {
     const tabSwitch = () => {
-
     }
-
-    return { tabSwitch }
+    return {
+      tabSwitch
+    }
   }
 })
 </script>
