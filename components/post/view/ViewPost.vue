@@ -2,7 +2,7 @@
   <div v-if="postSelected" class="w-full h-full">
     <div class="grid xl:flex h-full w-full xl:justify-end">
       <div
-class="flex-1 max-h-[80vh] h-[80vh] xl:h-full xl:max-h-full relative py-2    rounded-lg"
+        class="flex-1 max-h-[80vh] h-[80vh] xl:h-full xl:max-h-full relative py-2    rounded-lg"
         :style="{ backgroundImage: `url('${postSelected.image}')`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }">
         <video-control :post="postSelected" />
         <div class="absolute top-[calc(50%)] right-[20px] z-menu md:right-[50px] lg:right-[20px]">
