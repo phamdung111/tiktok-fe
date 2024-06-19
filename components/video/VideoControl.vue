@@ -1,11 +1,11 @@
 <template>
-  <div class="h-full">
+  <div class="h-full shadow-xl">
     <div class="flex justify-center h-full ">
       <div class="relative">
         <video
           ref="videoRef" muted loop preload="auto"
           class="object-cover h-full lg:w-auto lg:rounded-2xl overflow-hidden relative" :src="post.video"
-          @click="!perPost ? navigateTo(`/post/${post.id}`) : playPause()" />
+          @click="perPost ? playPause() : ''" />
         <div class="absolute w-full bottom-0 left-0 text-white z-controlVideo pb-3">
           <div v-if="!perPost" class="grid gap-3 pl-3">
             <h4 class="cursor-pointer hover:underline " @click="navigateTo(`/profile/${post.user[0].id}`)">{{
@@ -70,6 +70,7 @@ export default defineComponent({
     const volumeLevel = ref(0)
     const isMuted = ref(true)
 
+    
     const playPause = () => {
       if (videoRef.value) {
         if (videoRef.value.paused) {

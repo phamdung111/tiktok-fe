@@ -7,9 +7,7 @@
   <div v-else class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-2">
     <div v-for="post in people.liked" :key="post.id">
       <div class="aspect-2/3">
-        <video
-        :src="post.video" class="h-full w-full object-cover"
-        @click="showPost(post.postId)"/>
+        <video-base :id="post.id" :video-url="post.video" />
       </div>
       <h4 class="overflow-ellipsis overflow-hidden">{{ post.text }}</h4>
     </div>
@@ -17,10 +15,15 @@
 </template>
 
 <script lang="ts">
+import VideoBase from '../video/VideoBase.vue';
+
 import { useUserStore } from '~/store/user';
 import { usePeopleStore } from '~/store/people';
 export default defineComponent({
   name: 'ProfileLiked',
+  components: {
+    VideoBase
+  },
   setup() {
     const people = usePeopleStore()
     const user = useUserStore()

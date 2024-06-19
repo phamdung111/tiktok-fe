@@ -2,7 +2,7 @@
   <dir>
     <top-nav />
     <div class="flex w-full pt-[60px]">
-      <div class="ml-width-nav-menu-tablet lg:ml-width-nav-menu-laptop w-full h-[calc(100vh-60px)]">
+      <div class="w-full h-[calc(100vh-60px)]">
         <slot />
       </div>
     </div>
@@ -17,8 +17,6 @@ export default defineComponent({
   name: 'UploadLayout',
   components: { TopNav },
   setup() {
-
-
     return {}
   }
 })

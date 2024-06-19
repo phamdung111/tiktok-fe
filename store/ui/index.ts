@@ -1,5 +1,4 @@
-import type { VolumeInterface } from "~/interface/entity/volume/volume-interface";
-import type { UiStoreStateInterface } from "~/interface/store/ui/ui-store-state.interface";
+import type { SelectedPost, UiStoreStateInterface } from "~/interface/store/ui/ui-store-state.interface";
 import type { NotificationDeleteDataInterface } from "~/interface/ui/notification/notification-delete-data.interface";
 
 export const useUiStore = defineStore("ui", {
@@ -17,6 +16,7 @@ export const useUiStore = defineStore("ui", {
       isUploadPost: false,
       notificationDeleteData: [],
       globalVolume: 0,
+      selectedPostFrom: null
     };
   },
   actions: {
@@ -45,5 +45,11 @@ export const useUiStore = defineStore("ui", {
     closeMenuMobile() {
       this.isDisplayMenuMobile = false;
     },
+    setSelectedPostFrom(item : SelectedPost) {
+      this.selectedPostFrom = item
+    },
+    removeSelectedPostForm(){
+      this.selectedPostFrom = null
+    } 
   },
 });
