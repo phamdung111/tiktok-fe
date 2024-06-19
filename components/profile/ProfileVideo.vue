@@ -7,7 +7,7 @@
   <div v-else class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-2">
     <div v-for="post in people.videos" :key="post.id" class="">
       <div class="aspect-2/3">
-        <video :src="post.video" class="h-full w-full object-cover" @click="showPost(post.id)"/>
+        <video-base :id="post.id" :video-url="post.video"/>
       </div>
       <h4 class="overflow-ellipsis overflow-hidden">{{ post.text }}</h4>
     </div>
@@ -15,9 +15,13 @@
 </template>
 
 <script lang="ts">
+import VideoBase from '../video/VideoBase.vue';
 import { usePeopleStore } from '~/store/people';
 export default defineComponent({
   name: 'ProfileVideo',
+  components: {
+    VideoBase
+  },
   setup() {
     const people = usePeopleStore()
     const showPost = (postId: number) => {

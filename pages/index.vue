@@ -1,7 +1,7 @@
 <template>
   <nuxt-layout name="main-layout">
-    <div v-for="post in post.allPosts" :key="post.id">
-      <post-main :post="post"></post-main>
+    <div v-for="post in posts.allPosts" :key="post.id">
+      <post-main :post="post"/>
     </div>
   </nuxt-layout>
 </template>
@@ -22,9 +22,24 @@ export default defineComponent({
     PostMain
   },
   setup() {
-    const post = usePostStore()
-    infinityPosts(postsInitialDataComposable)
-    return { post }
+    const posts = usePostStore()
+    const ui = useUiStore()
+    const route = useRoute()
+    const handleScroll = (position: number) => {
+      window.scrollTo(0, position)
+    }
+    onMounted(async() => {
+      if (ui.selectedPostFrom?.link === route.path) {
+          const location = ui.selectedPostFrom!.location
+          setTimeout(() => {
+            handleScroll(location)
+          },100)
+      }else{
+        await infinityPosts(postsInitialDataComposable)
+
+      }
+    })
+    return { posts }
   }
 })
 </script>

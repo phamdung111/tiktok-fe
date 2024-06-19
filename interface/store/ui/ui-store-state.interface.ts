@@ -1,4 +1,3 @@
-import type { VolumeInterface } from "~/interface/entity/volume/volume-interface";
 import type { NotificationDeleteDataInterface } from "~/interface/ui/notification/notification-delete-data.interface";
 
 export interface UiStoreStateInterface {
@@ -14,4 +13,9 @@ export interface UiStoreStateInterface {
   notificationDeleteData: NotificationDeleteDataInterface[] | null;
   globalVolume: number;
   isLoading: boolean;
+  selectedPostFrom: SelectedPost | null
+}
+export interface SelectedPost {
+  link: string
+  location: number
 }

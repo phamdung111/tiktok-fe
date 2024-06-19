@@ -1,7 +1,7 @@
 <template>
   <nuxt-layout name="main-layout">
-    <div v-for="post in post.allPosts" :key="post.id">
-      <post-main :post="post"></post-main>
+    <div v-for="post in posts.allPosts" :key="post.id">
+      <post-main :post="post"/>
     </div>
   </nuxt-layout>
 </template>
@@ -13,9 +13,9 @@ import { infinityPosts } from '~/processor/infinity-scroll/infinity-posts.proces
 import { usePostStore } from '~/store/post';
 export default defineComponent({
   setup() {
-    const post = usePostStore()
+    const posts = usePostStore()
     infinityPosts(postsFollowingInitialDataComposable)
-    return { post }
+    return { posts }
   }
 })
 </script>

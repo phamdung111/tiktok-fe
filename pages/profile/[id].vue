@@ -3,7 +3,7 @@
     <nuxt-layout name="main-layout">
       <div class="px-[24px] py-[32px] w-full">
         <dir v-if="people.status === 200">
-          <information-user :information="people" :isMyProfile="isMyProfile"></information-user>
+          <information-user :information="people" :is-my-profile="isMyProfile"/>
         </dir>
         <div v-else-if="people.status === 404">
           <not-found-base :icon="`bx:user`" :text="`This account can't be found!`" />
@@ -12,7 +12,7 @@
           <notification-base />
         </div>
       </div>
-      <popup-component></popup-component>
+      <popup-component/>
     </nuxt-layout>
   </div>
 </template>

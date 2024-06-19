@@ -2,7 +2,7 @@
   <div v-if="comment" class="w-full justify-between items-center mt-4 relative">
     <div class="flex justify-between mb-4">
       <div class="basis-[50px] mr-4">
-        <avatar-user :image="comment.user[0].image" :size="48" :user-id="comment.user[0].id"/>
+        <avatar-user :image="comment.user[0].image" :size="48" :user-id="comment.user[0].id" />
       </div>
       <div class="flex w-full justify-between items-center">
         <div class="w-full">
@@ -14,19 +14,23 @@
           </div>
         </div>
         <div>
-          <delete-data :user-own="comment.user[0].id" type="comment" :id-data="comment.id"/>
+          <delete-data :user-own="comment.user[0].id" type="comment" :id-data="comment.id">
+            <template #icon>
+              <Icon name="ph:dots-three" size="24"/>
+            </template>
+          </delete-data>
         </div>
       </div>
     </div>
     <div v-if="isReply" class="flex items-center w-full mt-1 gap-2 mb-3 pl-[52px]">
       <input
-        v-model="textReply" class="py-[11px] w-full focus:outline-none focus:border-text-color-primary2 focus:ring-[1px] bg-bg-primary rounded-md cursor-pointer"
-        placeholder="Add answer..."
-        type="text" @keyup.enter="summitReply()">
+v-model="textReply"
+        class="py-[11px] w-full focus:outline-none focus:border-text-color-primary2 focus:ring-[1px] bg-bg-primary rounded-md cursor-pointer"
+        placeholder="Add answer..." type="text" @keyup.enter="summitReply()">
       <button
-        :disabled="!textReply" :class="textReply ? 'bg-red-primary text-white' : 'opacity-60 border border-text-color-primary2'"
-        class="px-5 py-2 rounded-sm font-medium"
-        @click="summitReply()">Post</button>
+:disabled="!textReply"
+        :class="textReply ? 'bg-red-primary text-white' : 'opacity-60 border border-text-color-primary2'"
+        class="px-5 py-2 rounded-sm font-medium" @click="summitReply()">Post</button>
       <Icon size="30" name="mdi:close" @click="closeReply()" />
     </div>
     <div v-if="comment?.replies?.length" class="pb-4 pl-[52px]">

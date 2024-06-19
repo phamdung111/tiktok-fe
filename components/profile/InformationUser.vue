@@ -87,8 +87,6 @@ export default defineComponent({
       const tabIndex = tabs.findIndex(tab => tab.value === tabSelected.value)
       currentTab.value = tabIndex
       tabDefault.value = tabIndex
-      console.log(currentTab.value);
-
     }
     return {
       user,

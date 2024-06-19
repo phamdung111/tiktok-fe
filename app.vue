@@ -38,7 +38,7 @@ onMounted(() => {
 <style>
 body::-webkit-scrollbar {
   width: 10px;
-  height: 10px;
+  height: 100px;
 }
 ::-webkit-scrollbar-thumb {
   background-color: rgba(22, 24, 35, 0.5);

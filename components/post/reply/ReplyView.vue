@@ -10,7 +10,11 @@
         <p class="text-[14px] text-text-color-blur">{{ formatDateTimeProvider(new Date(reply.time)) }}</p>
       </div>
     </div>
-    <delete-data :user-own="reply?.user[0].id" type="reply" :id-data="reply.id"/>
+    <delete-data :user-own="reply?.user[0].id" type="reply" :id-data="reply.id">
+      <template #icon>
+        <Icon name="ph:dots-three" size="24" />
+      </template>
+    </delete-data>
   </div>
 </template>
 
