@@ -1,4 +1,4 @@
-import type { PeopleResponseInterface } from "~/interface/response/people/people-response.inteface";
+import type { PeopleResponseInterface } from "~/interface/response/people/people-response.interface";
 import type { PostResponseInterface } from "~/interface/response/post/post-response.interface";
 import type { PeopleStoreStateInterface } from "~/interface/store/people/profile-store-state.interface";
 

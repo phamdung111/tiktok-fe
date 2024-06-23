@@ -1,4 +1,4 @@
-import type { PeopleResponseInterface } from "~/interface/response/people/people-response.inteface";
+import type { PeopleResponseInterface } from "~/interface/response/people/people-response.interface";
 import { http } from "~/utils/http/http";
 import { usePeopleStore } from "~/store/people";
 export const peopleService = Object.freeze({
