@@ -1,11 +1,12 @@
 <template>
-  <div class="flex gap-10 mb-4">
-    <div v-for="(tab, index) in tabs" :key="tab.value" @click="tabSwitch(index)"
-      :class="index === tabDefault ? 'border-b-[2px] border-b-text-color-primary text-text-color-primary' : 'text-text-color-blur'">
+  <div class="flex gap-10 mb-4 cursor-pointer">
+    <div
+      v-for="(tab, index) in tabs" :key="tab.value" :class="index === tabDefault ? 'border-b-[2px] border-b-text-color-primary text-text-color-primary' : 'text-text-color-blur'"
+      @click="tabSwitch(index)">
       {{ tab.value }}
     </div>
   </div>
-  <component :is="tabs[currentTab].component"></component>
+  <component :is="tabs[currentTab].component"/>
 
 </template>
 
@@ -20,13 +21,14 @@ export default defineComponent({
   props: {
     tabs: {
       type: Object as PropType<TabSwitchInterface[]>,
-      default: []
+      default: null
     },
     tabDefault: {
       type: Number,
       default: 0
     }
   },
+  emits:['tab-selected'],
   setup(props, { emit }) {
     const currentTab = ref(props.tabDefault)
     const tabSwitch = (index: number) => {

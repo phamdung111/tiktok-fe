@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-start mt-4">
     <button class="mr-5">
-      <span class="font-semibold pr-2">{{ information.following.length }}</span>
+      <span class="font-semibold pr-2">{{ information.following?.length }}</span>
       <span class="opacity-70 hover:underline font-medium">Following</span>
     </button>
     <button class="mr-5">
@@ -17,13 +17,14 @@
 
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
+import type { PeopleResponseInterface } from '~/interface/response/people/people-response.interface';
 import { useUserStore } from '~/store/user';
 
 export default defineComponent({
   name: 'InteractUser',
   props: {
     information: {
-      type: Object as PropType<any>,
+      type: Object as PropType<PeopleResponseInterface>,
       default: null
     }
   },

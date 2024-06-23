@@ -38,8 +38,7 @@ import EditProfileForm from './EditProfileForm.vue';
 import TabSwitch from '../tab/TabSwitch.vue';
 import FollowButton from '../button/FollowButton.vue';
 import type { TabSwitchInterface } from '~/interface/ui/tab-switch/tab-switch.interface';
-import type { PeopleResponseInterface } from '~/interface/response/people/people-response.inteface';
-import type { UserStoreStateInterface } from '~/interface/store/user/user-store-state.interface';
+import type { PeopleResponseInterface } from '~/interface/response/people/people-response.interface';
 export default defineComponent({
   name: 'InformationUser',
   components: {
@@ -49,13 +48,9 @@ export default defineComponent({
   },
   props: {
     information: {
-      type: Object as PropType<PeopleResponseInterface | UserStoreStateInterface>,
+      type: Object as PropType<PeopleResponseInterface>,
       default: null
     },
-    isMyProfile: {
-      type: Boolean,
-      default: false
-    }
   },
   setup() {
     const user = useUserStore()
@@ -63,6 +58,9 @@ export default defineComponent({
     const route = useRoute()
     const currentTab = ref(0)
     const tabDefault = ref(0)
+    const isMyProfile = computed(() => {
+      return Number(route.params.id) === user.id
+    })
     const tabs: TabSwitchInterface[] = [
       {
         value: 'Video',
@@ -93,6 +91,7 @@ export default defineComponent({
       tabs,
       currentTab,
       route,
+      isMyProfile,
       tabDefault,
       openEditProfileForm,
       tabSelected
