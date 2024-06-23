@@ -10,7 +10,7 @@
           <div class="basis-1/4">Profile Photo</div>
           <div class="basis-3/4 flex justify-center">
             <label for="change-avatar" class="relative">
-              <input id="change-avatar" type="file" class="hidden" @change="updateAvatar">
+              <input id="change-avatar" ref="fileInput" type="file" class="hidden" @change="updateAvatar">
               <div class="w-[100px] h-[100px] ">
                 <img class="w-full h-full rounded-full" :src="user.image" alt="">
               </div>
@@ -84,7 +84,7 @@ export default defineComponent({
   setup() {
     const user = useUserStore()
     const ui = useUiStore()
-    const newAvatar = ref(null)
+    const fileInput = ref<HTMLInputElement | null> (null)
     const isUpdateProfile = ref(false)
     const cropperImageLink = ref('')
     const cropper = ref()
@@ -92,26 +92,34 @@ export default defineComponent({
       ui.closePopup()
     }
     const uploadedImage = ref(false)
-    const updateAvatar = (event: any) => {
-      newAvatar.value = event.target.files[0]
-      cropperImageLink.value = URL.createObjectURL(event.target.files[0])
+    const updateAvatar = () => {
+      cropperImageLink.value = URL.createObjectURL(fileInput.value!.files![0])
       uploadedImage.value = true
     }
     const applyNewAvatar = async () => {
       const { coordinates } = cropper.value.getResult()
-      const data = new FormData()
-      data.append('image', newAvatar.value || '')
-      data.append('height', coordinates.height || '')
-      data.append('width', coordinates.width || '')
-      data.append('left', coordinates.left || '')
-      data.append('top', coordinates.top || '')
-      try {
+      console.log(coordinates);
+      
+      const image = new Image()
+      image.src = cropperImageLink.value
+      const canvas = document.createElement('canvas')
+      canvas.width = coordinates.width
+      canvas.height = coordinates.height
+      const ctx = canvas?.getContext('2d')
+      ctx?.drawImage(image, coordinates.left, coordinates.top, coordinates.width, coordinates.height, 0, 0,   coordinates.width, coordinates.height)
+      
+      canvas.toBlob(async (blob) => {
+        const data = new FormData()
+        data.append('image',blob!)
+        try {
         await formUserUpdateAvatarSubmit(data)
         uploadedImage.value = false
         await authenticationService.getUserAuthentication()
       } catch (error) {
         console.log(error);
       }
+      })
+      
     }
     const updateUser = async () => {
       await formUserUpdateProfileSubmitComposable()
@@ -130,15 +138,17 @@ export default defineComponent({
     return {
       user,
       form,
-      closePopup,
+      fileInput,
       isUpdateProfile,
-      updateAvatar,
-      applyNewAvatar,
-      updateUser,
-      CircleStencil,
       cropper,
       uploadedImage,
       cropperImageLink,
+      updateAvatar,
+      applyNewAvatar,
+      updateUser,
+      closePopup,
+      CircleStencil,
+
     }
   }
 })
