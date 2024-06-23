@@ -62,8 +62,6 @@ export default defineComponent({
             const data = new FormData()
             data.append('video', props.fileData || '')
             data.append('text', title.value || '')
-            console.log(videoRef.value);
-
             if (videoRef.value)
                 html2canvas(videoRef.value).then((canvas) => {
                     canvas.toBlob(async (blob) => {
