@@ -15,7 +15,7 @@ export const infinityPosts = async (callbackApi: any) => {
   };
   const onScroll = () => {
     if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 100) {
-      let newPosts = post.allPosts.length % POST.LIMIT;
+      const newPosts = post.allPosts.length % POST.LIMIT;
       newPosts === 0 ? loadMoreData() : "";
     }
   };

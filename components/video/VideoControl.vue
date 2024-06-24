@@ -1,11 +1,13 @@
 <template>
-  <div class="h-full shadow-xl">
+  <div v-if="post" class="h-full shadow-xl">
     <div class="flex justify-center h-full ">
       <div class="relative">
         <video
-          ref="videoRef" muted loop preload="auto"
-          class="object-cover h-full lg:w-auto lg:rounded-2xl overflow-hidden relative" :src="post.video"
-          @click="perPost ? playPause() : ''" />
+          ref="videoRef" muted loop 
+          class="object-cover h-full lg:w-auto lg:rounded-2xl overflow-hidden relative" 
+          @click="perPost ? playPause() : goToPost()" >
+          <source :src="post.video" type="video/mp4">
+        </video>
         <div class="absolute w-full bottom-0 left-0 text-white z-controlVideo pb-3">
           <div v-if="!perPost" class="grid gap-3 pl-3">
             <h4 class="cursor-pointer hover:underline " @click="navigateTo(`/profile/${post.user[0].id}`)">{{
@@ -23,16 +25,17 @@
                 min="0" :max="totalTime" @input="handleTimeUpdate">
             </div>
             <div class="relative">
+              <div @click="toggleMutedVideo()">
               <div v-if="!isMuted">
                 <Icon
                   class="hover:cursor-pointer"
                   name="streamline:entertainment-volume-level-high-speaker-high-volume-control-audio-music" size="30"
-                  @click="toggleMutedVideo()" />
+                   />
               </div>
               <div v-else>
                 <Icon
-                  class="hover:cursor-pointer" name="fluent:speaker-mute-24-filled" size="30"
-                  @click="toggleMutedVideo()" />
+                  class="hover:cursor-pointer" name="fluent:speaker-mute-24-filled" size="30" />
+              </div>
               </div>
               <input
                 v-model="volumeLevel"
@@ -47,8 +50,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType } from 'vue'
+import { defineComponent, type PropType, ref } from 'vue';
+import { usePeopleStore } from '~/store/people';
+import { usePostStore } from '~/store/post';
 import type { PostResponseInterface } from '~/interface/response/post/post-response.interface'
+import type { selectedStatusInterface } from '~/interface/store/post/selected-status.interface';
 export default defineComponent({
   name: 'VideoControl',
   components: {},
@@ -63,13 +69,15 @@ export default defineComponent({
     }
   },
   setup(props) {
+    const post = usePostStore()
+    const route = useRoute()
+    const people = usePeopleStore()
     const videoRef = ref<HTMLVideoElement | null>(null)
     const isPlaying = ref(false)
     const totalTime = ref(0)
     const currentTime = ref(0)
     const volumeLevel = ref(0)
     const isMuted = ref(true)
-
     
     const playPause = () => {
       if (videoRef.value) {
@@ -82,7 +90,15 @@ export default defineComponent({
         }
       }
     }
-    // control volume
+    const goToPost = () => {
+      const link :selectedStatusInterface = {
+        link: route.fullPath,
+        location: window.scrollY,
+        isSelected: true,
+      }
+      post.setSelectedStatus(link)
+      navigateTo(`/post/${props.post.id}`)
+    }
     const toggleMutedVideo = () => {
       if (!isMuted.value) {
         isMuted.value = true
@@ -144,41 +160,48 @@ export default defineComponent({
       isPlaying.value = false
       currentTime.value = 0
     }
+    
     onMounted(() => {
       const options = {
         root: null,
         rootMargin: '0px',
         threshold: 0.5,
       }
-      const autoPlayVideo = () => {
-        if (videoRef.value && !props.perPost) {
-          const promiseVideo = videoRef.value.play()
-          if (promiseVideo !== undefined) {
-            promiseVideo.then((_ => {
-              const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                  if (entry.isIntersecting && entry.target instanceof HTMLVideoElement) {
-                    entry.target.play()
-                    videoRef.value?.play()
-                    getVolumeLocalStorage()
-                  } else if (entry.target instanceof HTMLVideoElement) {
-                    entry.target.pause()
-                    resetTime()
-                  }
-                })
-              }, options)
-              if (videoRef.value) {
-                observer.observe(videoRef.value)
-              }
-            }))
+
+      // const observer = new IntersectionObserver(handleIntersection, options);
+      const observer = new IntersectionObserver(async (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && entry.target instanceof HTMLVideoElement) {
+            const playPromise = entry.target!.play();
+            if (playPromise !== undefined) {
+              playPromise.then(_ => {
+                isPlaying.value = true
+                videoRef.value!.play()
+              })
+              .catch(() => {
+                isPlaying.value = true
+                videoRef.value!.pause()
+                videoRef.value!.muted = false
+              });
+            }
+
+            if(videoRef.value){
+              videoRef.value?.play()
+              videoRef.value!.muted = false
+            }
+            getVolumeLocalStorage()
+
+          }else if (entry.target instanceof HTMLVideoElement) {
+            entry.target.pause()
+            resetTime()
           }
-        } else {
-          videoRef.value?.play()
-          isPlaying.value = true
-          getVolumeLocalStorage()
-        }
+        })
+      }, options)
+      
+      if (videoRef.value) {
+                observer.observe(videoRef.value)
       }
-      autoPlayVideo()
+      
     })
     onMounted(() => {
       if (videoRef.value) {
@@ -187,13 +210,13 @@ export default defineComponent({
         })
       }
     })
-    onMounted(() => {
-      if (videoRef.value) {
-        videoRef.value.paused ? isPlaying.value = true : isPlaying.value = false
-      }
+    watch(() => people.postSelected?.id, () =>{
+      videoRef.value!.src = props.post.video
+      videoRef.value?.play()
     })
     watch(() => isPlaying.value, () => {
       if (isPlaying.value === true) {
+        videoRef.value?.play()
         const interval = setInterval(function () {
           currentTime.value++
           if (currentTime.value >= totalTime.value) {
@@ -215,7 +238,8 @@ export default defineComponent({
       playPause,
       handleTimeUpdate,
       handleVolume,
-      toggleMutedVideo
+      toggleMutedVideo,
+      goToPost
     }
   }
 })

@@ -70,9 +70,8 @@
         </div>
       </div>
     </div>
-
   </div>
-  <div class="w-full pb-6 px-2 border-t hidden xl:block bottom-0 py-5 fixed z-menu xl:bg-white">
+  <div class="w-[600px] pb-6 px-2 border-t hidden xl:block bottom-0 py-5 fixed z-menu xl:bg-white">
     <form-user-comment :post-selected="postSelected" :is-show-creator-posts="isShowCreatorPosts" />
   </div>
 </template>

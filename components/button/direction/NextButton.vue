@@ -7,10 +7,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, type PropType } from 'vue'
+import type { PostResponseInterface } from '~/interface/response/post/post-response.interface';
 import { nextButton } from '~/processor/direction-button/next-button.processor';
 export default defineComponent({
   name: 'NextButton',
+  props: {
+    currentPost: {
+      type: Number,
+      default: 0
+    },
+    list: {
+      type: Array as PropType<PostResponseInterface[] | null>,
+      default: null
+    }
+  },
   setup() {
     return {
       nextButton

@@ -13,9 +13,5 @@ export interface UiStoreStateInterface {
   notificationDeleteData: NotificationDeleteDataInterface[] | null;
   globalVolume: number;
   isLoading: boolean;
-  selectedPostFrom: SelectedPost | null
 }
-export interface SelectedPost {
-  link: string
-  location: number
-}
+

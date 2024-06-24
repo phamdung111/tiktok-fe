@@ -33,7 +33,8 @@ export default defineComponent({
     const goToPost = () => {
       const selectedPost = {
         link: route.fullPath,
-        location: window.scrollY
+        location: window.scrollY,
+        origin: 'people'
       }
       ui.setSelectedPostFrom(selectedPost)
       navigateTo(`/post/${props.id}`)

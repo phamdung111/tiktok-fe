@@ -1,6 +1,7 @@
 import type { PostResponseInterface } from "~/interface/response/post/post-response.interface";
 import type { FollowInterface } from "~/interface/entity/follow/follow.interface";
 import type { PostInteractiveResponseInterface } from "~/interface/response/post/profile/post-interactive-response.interface";
+import type { selectedStatusInterface } from "../post/selected-status.interface";
 
 export interface PeopleStoreStateInterface {
   id: number;
@@ -16,4 +17,5 @@ export interface PeopleStoreStateInterface {
   favorite: PostInteractiveResponseInterface[] | null;
   isWatching: boolean;
   status: number;
+  selectedStatus: selectedStatusInterface | null
 }
