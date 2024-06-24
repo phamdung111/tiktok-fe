@@ -24,11 +24,11 @@
     </div>
     <div v-if="isReply" class="flex items-center w-full mt-1 gap-2 mb-3 pl-[52px]">
       <input
-v-model="textReply"
-        class="py-[11px] w-full focus:outline-none focus:border-text-color-primary2 focus:ring-[1px] bg-bg-primary rounded-md cursor-pointer"
+        v-model="textReply"
+        class="py-[11px] w-full focus:outline-none focus:border-text-color-primary2 focus:ring-[1px] bg-bg-primary rounded-md cursor-pointer pl-2"
         placeholder="Add answer..." type="text" @keyup.enter="summitReply()">
       <button
-:disabled="!textReply"
+        :disabled="!textReply"
         :class="textReply ? 'bg-red-primary text-white' : 'opacity-60 border border-text-color-primary2'"
         class="px-5 py-2 rounded-sm font-medium" @click="summitReply()">Post</button>
       <Icon size="30" name="mdi:close" @click="closeReply()" />
@@ -81,6 +81,7 @@ export default defineComponent({
       await userReplyCommentSubmitComposable()
       isReply.value = false
       form.text = ''
+      seeReply.value = true
     }
     const closeReply = () => {
       isReply.value = false

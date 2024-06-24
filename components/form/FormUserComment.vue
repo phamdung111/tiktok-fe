@@ -7,7 +7,7 @@
       <div class="flex ml-2 w-full gap-2">
         <input
           v-model="form.text"
-          class="overflow-hidden py-[11px] w-full focus:outline-none focus:border-text-color-primary2 focus:ring-[1px] bg-bg-primary rounded-md cursor-pointer"
+          class="overflow-hidden py-[11px] w-full focus:outline-none focus:border-text-color-primary2 focus:ring-[1px] bg-bg-primary rounded-md cursor-pointer pl-2"
           placeholder="Add comment..." type="text" @keyup.enter="submitComment()">
         <button
           :disabled="!isComment"
