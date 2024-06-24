@@ -1,6 +1,6 @@
 <template>
   <div class="w-screen h-screen">
-    <slot></slot>
+    <slot/>
   </div>
 </template>
 
@@ -13,5 +13,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style scoped></style>

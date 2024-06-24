@@ -1,6 +1,7 @@
 import type { PeopleResponseInterface } from "~/interface/response/people/people-response.interface";
 import type { PostResponseInterface } from "~/interface/response/post/post-response.interface";
 import type { PeopleStoreStateInterface } from "~/interface/store/people/profile-store-state.interface";
+import type { selectedStatusInterface } from "~/interface/store/post/selected-status.interface";
 
 export const usePeopleStore = defineStore("people", {
   state: (): PeopleStoreStateInterface => {
@@ -18,6 +19,7 @@ export const usePeopleStore = defineStore("people", {
       favorite: [],
       isWatching: false,
       status: 0,
+      selectedStatus: null
     };
   },
   getters: {
@@ -45,5 +47,11 @@ export const usePeopleStore = defineStore("people", {
     setStatus(status: number) {
       this.status = status;
     },
+    setSelectedStatus(status: selectedStatusInterface){
+      this.selectedStatus = status
+    },
+    removeSelectedStatus(){
+      this.selectedStatus = null
+    }
   },
 });
