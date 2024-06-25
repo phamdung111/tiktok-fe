@@ -1,12 +1,12 @@
 <template>
-  <dir>
+  <div>
     <top-nav />
     <div class="flex w-full pt-[60px]">
       <div class="w-full h-[calc(100vh-60px)]">
         <slot />
       </div>
     </div>
-  </dir>
+  </div>
 </template>
 
 <script lang="ts">

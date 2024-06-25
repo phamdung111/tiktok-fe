@@ -79,7 +79,7 @@ export default defineComponent({
     const ownPost = computed(() => {
       return postSelected.value?.user[0].id === user.id
     })
-    onMounted(async () => {
+    onMounted(async() => {
       await postInitialDataComposable(Number(route.params.id))
       postSelected.value = post.postSelected
       isLoading.value = true

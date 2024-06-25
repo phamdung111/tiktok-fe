@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { useUiStore } from '~/store/ui';
+import { usePeopleStore } from '~/store/people';
 export default defineComponent({
   name: 'VideoBase',
   props: {
@@ -22,7 +22,7 @@ export default defineComponent({
   },
   setup(props) {
     const videoRef = ref<HTMLVideoElement>()
-    const ui = useUiStore()
+    const people = usePeopleStore()
     const route = useRoute()
     const playVideo = () => {
       videoRef.value?.play()
@@ -34,9 +34,9 @@ export default defineComponent({
       const selectedPost = {
         link: route.fullPath,
         location: window.scrollY,
-        origin: 'people'
+        isSelected: true
       }
-      ui.setSelectedPostFrom(selectedPost)
+      people.setSelectedStatus(selectedPost)
       navigateTo(`/post/${props.id}`)
 
     }

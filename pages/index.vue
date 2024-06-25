@@ -24,9 +24,9 @@ export default defineComponent({
     const handleScroll = (position: number) => {
       window.scrollTo(0, position)
     }
-    onMounted(async() => {
+    onMounted(() => {
       if (!posts.selectedStatus?.isSelected) {
-        await infinityPosts(postsInitialDataComposable)
+       infinityPosts(postsInitialDataComposable)
       }else{
         const location = posts.selectedStatus.location
           setTimeout(() => {

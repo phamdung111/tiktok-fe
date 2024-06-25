@@ -14,6 +14,9 @@ export const authenticationService = Object.freeze({
       const response = await http().post("api/logged-in-user");
       useUserStore().setUser(response.data[0]);
       useUiStore().isOpenOverlay = false;
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+      
+    }
   },
 });

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center items-center pt-[40px] w-screen">
+  <div class="flex justify-center items-center pt-[40px]">
     <div class="text-center">
       <div class="text-text-color-blur a">
         <Icon :name="icon" size="96" />
