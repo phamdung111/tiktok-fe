@@ -113,8 +113,8 @@ export default defineComponent({
     })
     const people = usePeopleStore()
     const { videos } = storeToRefs(people)
-    const showCreatorPosts = async () => {
-      await peopleInitialDataComposable(Number(props.postSelected?.user[0].id))
+    const showCreatorPosts = () => {
+      peopleInitialDataComposable(Number(props.postSelected?.user[0].id))
       isShowCreatorPosts.value = true
     }
     const showComments =() => {
