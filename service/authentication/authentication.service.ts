@@ -15,8 +15,9 @@ export const authenticationService = Object.freeze({
       useUserStore().setUser(response.data[0]);
       useUiStore().isOpenOverlay = false;
     } catch (error) {
-      console.log(error);
-      
+      if(error){
+        useUiStore().isOpenOverlay = true
+      }
     }
   },
 });

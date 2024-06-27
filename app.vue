@@ -26,9 +26,6 @@ const isCheckingToken = ref(false)
 onMounted(async () => {
   if (token.value) {
     await loginWithTokenComposable(token)
-    ui.isOpenOverlay = false
-  } else {
-    ui.isOpenOverlay = true
   }
 })
 onMounted(() => {
