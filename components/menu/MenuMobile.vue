@@ -25,7 +25,7 @@
         <div
           :class="ui.menuSelected === MENU.MAIN.PROFILE.link ? 'text-red-primary' : ''"
           class="flex items-center justify-start py-3 px-2 hover:bg-gray-100 cursor-pointer"
-          @click="goTo(`${MENU.MAIN.PROFILE.link}/${user.id}`)">
+          @click="user.id ? goTo(`${MENU.MAIN.PROFILE.link}/${user.id}`) : showLogin()">
           <avatar-user :size="32" :image="user.image" :user-id="user.id"/>
           <span class="pl-2 font-semibold text-sm">Profile</span>
         </div>
@@ -61,6 +61,9 @@ export default defineComponent({
       navigateTo(`${route}`)
       ui.closeMenuMobile()
     }
+    const showLogin = () => {
+      ui.isOpenOverlay = true
+    }
 
     const logout = async () => {
       await logoutUserComposable()
@@ -71,7 +74,8 @@ export default defineComponent({
       user,
       MENU,
       logout,
-      goTo
+      goTo,
+      showLogin
     }
   }
 })
