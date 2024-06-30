@@ -1,7 +1,7 @@
 <template>
   <div v-if="isLoading" class="h-full">
-    <div v-if="postSelected" class="w-full h-full">
-      <div class="grid xl:flex h-full w-full xl:justify-end">
+    <div v-if="postSelected" class="h-full">
+      <div class="grid xl:flex h-full xl:w-full xl:justify-end">
         <div
           class="flex-1 max-h-[80vh] h-[80vh] xl:h-full xl:max-h-full relative py-2 rounded-lg flex items-center justify-center"
           :style="{ backgroundImage: `url('${postSelected.image}')`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }">

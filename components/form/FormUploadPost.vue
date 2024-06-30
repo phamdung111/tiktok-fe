@@ -57,6 +57,7 @@ export default defineComponent({
         const videoRef = ref<HTMLVideoElement | null>(null)
         const clearVideo = () => {
             ui.isUploadPost = false
+            fileDisplay.value = ''
         }
         const uploadPost = async () => {
             const data = new FormData()
@@ -73,7 +74,9 @@ export default defineComponent({
         }
         onMounted(() => {
             fileDisplay.value = URL.createObjectURL(props.fileData)
-
+        })
+        watch(() => props.fileData, () => {
+            fileDisplay.value = URL.createObjectURL(props.fileData)
         })
         watch(() => title.value.length, () => {
             title.value.length > 0 ? validate.text.isFailed = false : ''

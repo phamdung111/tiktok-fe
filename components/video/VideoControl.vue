@@ -1,10 +1,11 @@
 <template>
-  <div v-if="post" class="h-full shadow-xl">
+  <div v-if="post.video" class="h-full shadow-xl">
     <div class="flex justify-center h-full ">
       <div class="relative">
         <video
           ref="videoRef" muted loop 
           class="object-cover h-full lg:w-auto lg:rounded-2xl overflow-hidden relative" 
+          @timeupdate="handleTimeUpdate"
           @click="perPost ? playPause() : goToPost()" >
           <source :src="post.video" type="video/mp4">
         </video>
@@ -22,7 +23,7 @@
             <div class="w-full">
               <input
                 v-model="currentTime" class="w-full h-[2px] flex items-center hover:cursor-pointer" type="range"
-                min="0" :max="totalTime" @input="handleTimeUpdate">
+                min="0" :max="totalTime" @input="dragProcessBar">
             </div>
             <div class="relative">
               <div @click="toggleMutedVideo()">
@@ -131,44 +132,44 @@ export default defineComponent({
     }
     const getVolumeLocalStorage = () => {
       const localVolume = JSON.parse(localStorage.getItem('webapp-video-volume')!)
-      if (localVolume.muted) {
-        volumeLevel.value = 0
-        videoRef.value!.volume = 0
-      } else {
-        volumeLevel.value = localVolume.volume
-        videoRef.value!.volume = localVolume.volume
+      if(videoRef.value && localVolume){
+        if (localVolume.muted) {
+          volumeLevel.value = 0
+          videoRef.value!.volume = 0
+        } else {
+          volumeLevel.value = localVolume.volume
+          videoRef.value!.volume = localVolume.volume
+        }
+        isMuted.value = localVolume.muted
+        videoRef.value!.muted = localVolume.muted
       }
-      isMuted.value = localVolume.muted
-      videoRef.value!.muted = localVolume.muted
     }
-    // control duration video
     const getVideoDuration = () => {
       if (videoRef.value) {
         totalTime.value = Math.floor(videoRef.value.duration)
       }
     }
-    const handleTimeUpdate = () => {
-      if (videoRef.value) {
+    const dragProcessBar = () => {
+      if (videoRef.value && currentTime.value) {
         videoRef.value.currentTime = currentTime.value
         if (isPlaying.value) {
           videoRef.value.play()
         }
       }
     }
-
+    const handleTimeUpdate = () => {
+      currentTime.value = videoRef.value!.currentTime
+    }
     const resetTime = () => {
       isPlaying.value = false
       currentTime.value = 0
     }
-    
     onMounted(() => {
       const options = {
         root: null,
         rootMargin: '0px',
         threshold: 0.5,
       }
-
-      // const observer = new IntersectionObserver(handleIntersection, options);
       const observer = new IntersectionObserver(async (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting && entry.target instanceof HTMLVideoElement) {
@@ -176,21 +177,12 @@ export default defineComponent({
             if (playPromise !== undefined) {
               playPromise.then(_ => {
                 isPlaying.value = true
-                videoRef.value!.play()
+                getVolumeLocalStorage()
               })
               .catch(() => {
-                isPlaying.value = true
-                videoRef.value!.pause()
-                videoRef.value!.muted = false
+                isPlaying.value = false
               });
             }
-
-            if(videoRef.value){
-              videoRef.value?.play()
-              videoRef.value!.muted = false
-            }
-            getVolumeLocalStorage()
-
           }else if (entry.target instanceof HTMLVideoElement) {
             entry.target.pause()
             resetTime()
@@ -199,9 +191,8 @@ export default defineComponent({
       }, options)
       
       if (videoRef.value) {
-                observer.observe(videoRef.value)
+        observer.observe(videoRef.value)
       }
-      
     })
     onMounted(() => {
       if (videoRef.value) {
@@ -214,20 +205,6 @@ export default defineComponent({
       videoRef.value!.src = props.post.video
       videoRef.value?.play()
     })
-    watch(() => isPlaying.value, () => {
-      if (isPlaying.value === true) {
-        videoRef.value?.play()
-        const interval = setInterval(function () {
-          currentTime.value++
-          if (currentTime.value >= totalTime.value) {
-            currentTime.value = 0
-          }
-          if (isPlaying.value === false) {
-            clearInterval(interval)
-          }
-        }, 1000)
-      }
-    })
     return {
       videoRef,
       isPlaying,
@@ -236,10 +213,11 @@ export default defineComponent({
       volumeLevel,
       isMuted,
       playPause,
-      handleTimeUpdate,
+      dragProcessBar,
       handleVolume,
       toggleMutedVideo,
-      goToPost
+      goToPost,
+      handleTimeUpdate
     }
   }
 })
