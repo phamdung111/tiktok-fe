@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!people.videos?.length" class="w-full px-[32px] py-[87px] text-center">
+  <div v-if="!people.liked?.length" class="w-full px-[32px] py-[87px] text-center">
     <Icon class="invisible md:visible opacity-40" size="90" name="ph:user-light" />
     <h3 class="text-[17px] font-medium mb-4">No liked videos yet </h3>
     <h4 class="opacity-70">Videos you liked will appear here</h4>
